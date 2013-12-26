@@ -14,7 +14,7 @@ var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " +
 
 svg.append("rect").attr("class", "background")
     .attr("width", width).attr("height", height)
-    .on("click", function(d){clicked(d,0);});
+    .on("click", resetNation);
 
 var g = svg.append("g");
    
@@ -26,7 +26,7 @@ d3.json("muni.json", function(error, muni) {
         .enter().append("path")
         .attr("class", function(d) { return "province " + d.id; })
         .attr("d", path)
-        .on("click", function(d){clicked(d,1);})
+        .on("click", clicked)
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
     
@@ -36,7 +36,7 @@ d3.json("muni.json", function(error, muni) {
         .enter().append("path")
         .attr("class", function(d) { return "district " + d.id; })
         .attr("d", path).style("opacity", 0).style("display", "none")
-        .on("click", function(d){clicked(d,2);})
+        .on("click", clicked)
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
 
@@ -46,7 +46,7 @@ d3.json("muni.json", function(error, muni) {
         .enter().append("path")
         .attr("class", function(d) { return "muni " + d.id; })
         .attr("d", path).style("opacity", 0).style("display", "none")
-        .on("click", function(d){clicked(d,3);})
+        .on("click", clicked)
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
 
@@ -71,27 +71,27 @@ d3.json("muni.json", function(error, muni) {
     
 });
 
-function clicked(d, l) {
+function clicked(d) {
+    goToArea(d.id);
+}
+
+function goToArea(code) {
+    var d = d3.select('.' + code).datum();
+    var l = muniinfo[code].layer;
+
     var dur = 750;
-    var x, y, k;
-    if (l == 0) {
-        //$('#areaname').text("South Africa");
-        x = width/2;
-        y = height/2;
-        k = 1;
-    } else {
-        //$('#areaname').text(d.properties.name);
-        var bds = path.bounds(d);
-        var w = bds[0][0];
-        var n = bds[0][1];
-        var e = bds[1][0];
-        var s = bds[1][1];
-        var wd = e - w;
-        var ht = s - n;
-        x = (w + e)/2;
-        y = (n + s)/2;
-        k = Math.min(width/wd, height/ht)*0.9;
-    }
+
+    //$('#areaname').text(d.properties.name);
+    var bds = path.bounds(d);
+    var w = bds[0][0];
+    var n = bds[0][1];
+    var e = bds[1][0];
+    var s = bds[1][1];
+    var wd = e - w;
+    var ht = s - n;
+    var x = (w + e)/2;
+    var y = (n + s)/2;
+    var k = Math.min(width/wd, height/ht)*0.9;
 
     g.transition().duration(dur)
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
@@ -133,9 +133,26 @@ function clicked(d, l) {
     }
 };
 
+function resetNation() {
+    var dur = 750;
+    var x, y, k;
+    x = width/2;
+    y = height/2;
+    k = 1;
+
+    g.transition().duration(dur).attr("transform", "");
+
+    provstroke.transition().duration(dur).style("stroke-width", "2px");
+    distarea.transition().duration(dur).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
+    diststroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
+    muniarea.transition().duration(dur).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
+    munistroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
+
+};
+
 $('#reseta').click(function(e) {
     e.preventDefault();
-    clicked(null, 0);
+    resetNation();
 });
 
 function hovered(d) {
