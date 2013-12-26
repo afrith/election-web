@@ -123,12 +123,16 @@ function goToArea(code) {
 
     if (l == 1) {
         showProv(k, 4);
-        showDist(k, 2);
+        showDist(k, 2, code);
         hideMuni();
-    } else if (l == 2 || l == 3) {
+    } else if (l == 2) {
         showProv(k, 6);
-        showDist(k, 4);
-        showMuni(k, 2);
+        showDist(k, 4, muniinfo[code].parent);
+        showMuni(k, 2, code);
+    } else if (l == 3) {
+        showProv(k, 6);
+        showDist(k, 4, muniinfo[muniinfo[code].parent].parent);
+        showMuni(k, 2, muniinfo[code].parent);
     }
 
     $("#zoomout").css("display", "inline");
@@ -147,15 +151,27 @@ function showProv(scale, sw) {
     provstroke.transition().duration(transDuration).style("stroke-width", (sw/scale) + "px");
 }
 
-function showDist(scale, sw) {
-    distarea.style("display", "inline");
+function showDist(scale, sw, pcode) {
+    distarea.style("display", function(d) {
+        if ((!pcode) || (muniinfo[d.id].parent == pcode)) {
+            return "inline";
+        } else {
+            return "none";
+        }
+    });
     //distarea.transition().duration(transDuration).style("opacity", 1);
     diststroke.style("display", "inline");
     diststroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
 }
 
-function showMuni(scale, sw) {
-    muniarea.style("display", "inline");
+function showMuni(scale, sw, pcode) {
+    muniarea.style("display", function(d) {
+        if ((!pcode) || (muniinfo[d.id].parent == pcode)) {
+            return "inline";
+        } else {
+            return "none";
+        }
+    });
     //muniarea.transition().duration(transDuration).style("opacity", 1);
     munistroke.style("display", "inline");
     munistroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
