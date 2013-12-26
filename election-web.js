@@ -30,6 +30,8 @@ d3.json("muni.json", function(error, muni) {
         .attr("class", function(d) { return "province " + d.id; })
         .attr("d", path)
         .on("click", clicked)
+        .on("mousewheel", mousewheel)
+        .on("DOMMouseScroll", mousewheel)
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
     
@@ -42,6 +44,8 @@ d3.json("muni.json", function(error, muni) {
         //.style("opacity", 0)
         .style("display", "none")
         .on("click", clicked)
+        .on("mousewheel", mousewheel)
+        .on("DOMMouseScroll", mousewheel)
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
 
@@ -54,6 +58,8 @@ d3.json("muni.json", function(error, muni) {
         //.style("opacity", 0)
         .style("display", "none")
         .on("click", clicked)
+        .on("mousewheel", mousewheel)
+        .on("DOMMouseScroll", mousewheel)
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
 
@@ -87,6 +93,11 @@ d3.json("muni.json", function(error, muni) {
 
 $('#zoomout').click(function(e) {
     e.preventDefault();
+    zoomOut();
+});
+$('#zoomout').css("display", "none");
+
+function zoomOut() {
     if (curCode != '') {
         var prt = muniinfo[curCode].parent;
         if (prt) {
@@ -95,8 +106,16 @@ $('#zoomout').click(function(e) {
             resetNation();
         }
     }
-});
-$('#zoomout').css("display", "none");
+}
+
+function mousewheel(d) {
+    d3.event.preventDefault();
+    if (d3.event.wheelDelta > 0 || d3.event.detail < 0) {
+        goToArea(d.id);
+    } else {
+        zoomOut();
+    }
+}
 
 function clicked(d) {
     goToArea(d.id);
