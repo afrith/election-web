@@ -16,9 +16,12 @@ body { margin: 8px; }
     #map { position:fixed; width:500px ; height: 450px; }
     #legend { position:absolute; left: 510px; top: 0; }
 }
+#legend { padding-top: 20px; }
 
 #hovertext { position:absolute; right:0; bottom:0; text-align: right; }
 #resetdiv { position:absolute; left:0; bottom:0; }
+
+div.header { font-size: 150%; font-weight: bold; }
 
 .background { fill: none; pointer-events: all; }
 .province, .district, .muni { fill: lightgray; stroke: none; }
