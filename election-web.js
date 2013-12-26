@@ -1,6 +1,8 @@
 var width = 500;
 var height = 450;
 
+var transDuration = 750;
+
 var projection = d3.geo.conicEqualArea()
     .center([0, -28.5])
     .rotate([-24.5, 0])
@@ -71,6 +73,11 @@ d3.json("muni.json", function(error, muni) {
     
 });
 
+$('#reseta').click(function(e) {
+    e.preventDefault();
+    resetNation();
+});
+
 function clicked(d) {
     goToArea(d.id);
 }
@@ -78,8 +85,6 @@ function clicked(d) {
 function goToArea(code) {
     var d = d3.select('.' + code).datum();
     var l = muniinfo[code].layer;
-
-    var dur = 750;
 
     //$('#areaname').text(d.properties.name);
     var bds = path.bounds(d);
@@ -93,67 +98,55 @@ function goToArea(code) {
     var y = (n + s)/2;
     var k = Math.min(width/wd, height/ht)*0.9;
 
-    g.transition().duration(dur)
+    g.transition().duration(transDuration)
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
 
-    if (l == 0) {
-        provstroke.transition().duration(dur).style("stroke-width", "2px");
-        distarea.transition().duration(dur).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
-        diststroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
-        muniarea.transition().duration(dur).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
-        munistroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
-    } else if (l == 1) {
-        provstroke.transition().duration(dur).style("stroke-width", (4/k) + "px");
-        distarea.style("display", "inline");
-        distarea.transition().duration(dur).style("opacity", 1);
-        diststroke.style("display", "inline");
-        diststroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (2/k) + "px");
-        muniarea.transition().duration(dur).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
-        munistroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
-    } else if (l == 2) {
-        provstroke.transition().duration(dur).style("stroke-width", (6/k) + "px");
-        distarea.style("display", "inline");
-        distarea.transition().duration(dur).style("opacity", 1);
-        diststroke.style("display", "inline");
-        diststroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (4/k) + "px");
-        muniarea.style("display", "inline");
-        muniarea.transition().duration(dur).style("opacity", 1);
-        munistroke.style("display", "inline");
-        munistroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (2/k) + "px");
-    } else if (l == 3) {
-        provstroke.transition().duration(dur).style("stroke-width", (6/k) + "px");
-        distarea.style("display", "inline");
-        distarea.transition().duration(dur).style("opacity", 1);
-        diststroke.style("display", "inline");
-        diststroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (4/k) + "px");
-        muniarea.style("display", "inline");
-        muniarea.transition().duration(dur).style("opacity", 1);
-        munistroke.style("display", "inline");
-        munistroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (2/k) + "px");
+    if (l == 1) {
+        showProv(k, 4);
+        showDist(k, 2);
+        hideMuni();
+    } else if (l == 2 || l == 3) {
+        showProv(k, 6);
+        showDist(k, 4);
+        showMuni(k, 2);
     }
 };
 
 function resetNation() {
-    var dur = 750;
-    var x, y, k;
-    x = width/2;
-    y = height/2;
-    k = 1;
-
-    g.transition().duration(dur).attr("transform", "");
-
-    provstroke.transition().duration(dur).style("stroke-width", "2px");
-    distarea.transition().duration(dur).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
-    diststroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
-    muniarea.transition().duration(dur).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
-    munistroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
-
+    g.transition().duration(transDuration).attr("transform", "");
+    showProv(1, 3);
+    hideDist();
+    hideMuni();
 };
 
-$('#reseta').click(function(e) {
-    e.preventDefault();
-    resetNation();
-});
+function showProv(scale, sw) {
+    provstroke.transition().duration(transDuration).style("stroke-width", (sw/scale) + "px");
+}
+
+function showDist(scale, sw) {
+    distarea.style("display", "inline");
+    distarea.transition().duration(transDuration).style("opacity", 1);
+    diststroke.style("display", "inline");
+    diststroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
+}
+
+function showMuni(scale, sw) {
+    muniarea.style("display", "inline");
+    muniarea.transition().duration(transDuration).style("opacity", 1);
+    munistroke.style("display", "inline");
+    munistroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
+}
+
+function hideDist() {
+    distarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
+    diststroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
+}
+
+function hideMuni() {
+    muniarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
+    munistroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
+
+}
 
 function hovered(d) {
     $("#hovername").text(muniinfo[d.id].name);
