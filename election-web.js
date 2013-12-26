@@ -139,7 +139,7 @@ $('#reseta').click(function(e) {
 });
 
 function hovered(d) {
-    $("#hovername").text(d.properties.name);
+    $("#hovername").text(muniinfo[d.id].name);
 };
 function unhovered(d) {
     $("#hovername").text("");
