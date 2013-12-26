@@ -18,8 +18,8 @@ body { margin: 8px; }
 }
 #legend { padding-top: 20px; }
 
-#hovertext { position:absolute; right:0; bottom:0; text-align: right; }
-#resetdiv { position:absolute; left:0; bottom:0; }
+#resetdiv { position:absolute; right:0; bottom:0; text-align: right; }
+#hovertext { position:absolute; left:0; bottom:0; }
 
 div.header { font-size: 150%; font-weight: bold; }
 
