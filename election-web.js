@@ -19,6 +19,7 @@ svg.append("rect").attr("class", "background")
     .on("click", resetNation);
 
 var g = svg.append("g");
+var hoverph;
    
 d3.json("muni.json", function(error, muni) {
     var provs = topojson.feature(muni, muni.objects.provinces);
@@ -55,6 +56,8 @@ d3.json("muni.json", function(error, muni) {
         .on("click", clicked)
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
+
+    hoverph = g.append("g").attr("id", "hoverph");
 
     munistroke = g.append("path")
         .datum(topojson.mesh(muni, muni.objects.munis, function (a, b){ return a !== b; }))
@@ -193,7 +196,7 @@ function hideMuni() {
 
 function hovered(d) {
     $("#hovername").text(muniinfo[d.id].name);
-    g.append("path")
+    hoverph.append("path")
         .attr("d", d3.select(this).attr("d"))
         .attr("id", "hoverobj");
 };
