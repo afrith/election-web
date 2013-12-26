@@ -1,7 +1,7 @@
 var width = 500;
 var height = 450;
 
-var transDuration = 750;
+var transDuration = 500;
 
 var projection = d3.geo.conicEqualArea()
     .center([0, -28.5])
@@ -108,8 +108,8 @@ function goToArea(code) {
     curCode = code;
     var d = d3.select('.' + code).datum();
     var l = muniinfo[code].layer;
+    $('#placename').text(muniinfo[code].name);
 
-    //$('#areaname').text(d.properties.name);
     var bds = path.bounds(d);
     var w = bds[0][0];
     var n = bds[0][1];
@@ -143,6 +143,8 @@ function goToArea(code) {
 
 function resetNation() {
     curCode = '';
+    $('#placename').text("South Africa");
+
     g.transition().duration(transDuration).attr("transform", "");
     showProv(1, 3);
     hideDist();
