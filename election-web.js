@@ -73,16 +73,32 @@ d3.json("muni.json", function(error, muni) {
     
 });
 
-$('#reseta').click(function(e) {
+/*$('#reseta').click(function(e) {
     e.preventDefault();
     resetNation();
+});*/
+
+$('#zoomout').click(function(e) {
+    e.preventDefault();
+    if (curCode != '') {
+        var prt = muniinfo[curCode].parent;
+        if (prt) {
+            goToArea(prt);
+        } else {
+            resetNation();
+        }
+    }
 });
+$('#zoomout').css("display", "none");
 
 function clicked(d) {
     goToArea(d.id);
 }
 
+var curCode = '';
+
 function goToArea(code) {
+    curCode = code;
     var d = d3.select('.' + code).datum();
     var l = muniinfo[code].layer;
 
@@ -110,13 +126,17 @@ function goToArea(code) {
         showDist(k, 4);
         showMuni(k, 2);
     }
+
+    $("#zoomout").css("display", "inline");
 };
 
 function resetNation() {
+    curCode = '';
     g.transition().duration(transDuration).attr("transform", "");
     showProv(1, 3);
     hideDist();
     hideMuni();
+    $('#zoomout').css("display", "none");
 };
 
 function showProv(scale, sw) {
