@@ -96,7 +96,7 @@
             .enter().append("path")
             .attr("class", function(d) { return "muni " + d.id; })
             .attr("d", path).style("opacity", 0).style("display", "none")
-            //.on("click", function(d){clicked(d,3);})
+            .on("click", function(d){clicked(d,3);})
             .on("mouseover", hovered)
             .on("mouseout", unhovered);
 
