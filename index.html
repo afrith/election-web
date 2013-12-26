@@ -3,79 +3,143 @@
 <head>
 	<title>South Africa 2009 Election Results</title>
 	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style>
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+    body { margin: 8px; }
+
+    #wrapper { position: relative; }
+    @media only screen and (max-width: 524px) {
+        #map { width: 100%; height: 0; padding-bottom: 90%; }
+    }
+    @media only screen and (min-width: 525px) and (max-width:849px) {
+        #map { width: 500px; height: 450px; margin:0 auto; }
+    }
+    @media only screen and (min-width: 850px) {
+        #map { position:fixed; width:500px ; height: 450px; }
+        #legend { position:absolute; left: 510px; top: 0; }
+    }
+
+    .background { fill: none; pointer-events: all; }
+
+    .province, .district { fill: lightgray; stroke: none; }
+    .province:hover, .district:hover { fill: pink; }
+    .prov-border,.dist-border { fill: none; stroke: white; stroke-linejoin: round; stroke-linecap:round; }
+    </style>
 </head>
 <body>
-    <div id="text" style="position:absolute;top:0;bottom:0;left:0;width:100px;">Foo bar</div>
-	<div id="map" style="position:absolute;top:0;bottom:0;left:100px;right:0;"></div>
 
     <script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+    <script src="http://d3js.org/topojson.v1.min.js" type="text/javascript"></script>
 
-	<script>
-		var map = L.map('map', { dragging: false, touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, tap: false, keyboard: false, zoomControl: false });
-        //var map = L.map('map');
+    <div id="wrapper">
+    <div id="map">
+    </div>
+    <div id="legend">
+    <p><span id="areaname">South Africa</span><p>
+    </div>
+    </div>
 
-		L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
-			attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
-			key: 'bdba6dcbd8f743d6bedaaeb51341f7da'
-		}).addTo(map);
+    <script type="text/javascript">
+    var width = 500;
+    var height = 450;
 
-        $.getJSON("wards.json", function(data) {
-            var topo = data;
-            provdata = topojson.feature(topo, topo.objects.provinces);
-            distdata = topojson.feature(topo, topo.objects.districts); 
-            munidata = topojson.feature(topo, topo.objects.munis); 
-            warddata = topojson.feature(topo, topo.objects.wards); 
+    var projection = d3.geo.conicEqualArea()
+        .center([0, -28.5])
+        .rotate([-24.5, 0])
+        .parallels([-25.5, -31.5])
+        .scale(1800)
+        .translate([width/2, height/2]);
 
-            provlayer = L.geoJson(provdata, {
-                style: function(feature) {
-                    return { weight: 3, lineCap: 'round' };
-                },
-                onEachFeature: function(feature, layer) {
-                    layer.on('click', function (e) {
-                        //map.setMaxBounds(null);
-                        //map.options.minZoom = 1;
-                        map.fitBounds(layer.getBounds().pad(0.05));
-                        //map.setMaxBounds(layer.getBounds().pad(0.05));
-                        //map.options.minZoom = map.getZoom();
-                    });
-                }
-            });
-            map.fitBounds(provlayer.getBounds().pad(0.05));
-            //map.setMaxBounds(provlayer.getBounds().pad(0.05));
-            //map.options.minZoom = map.getZoom();
-            provlayer.addTo(map);
+    var path = d3.geo.path().projection(projection);
+    
+    var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " + height);
 
-            /*distlayer = L.geoJson(distdata, {
-                style: function(feature) {
-                    return { weight: 1.5, fill: false };
-                },
-                onEachFeature: function(feature, layer) {
-                    layer.bindPopup(feature.properties.name);
-                }
-            }).addTo(map);
+    svg.append("rect").attr("class", "background")
+        .attr("width", width).attr("height", height)
+        .on("click", function(d){clicked(d,0);});
 
-            munilayer = L.geoJson(munidata, {
-                style: function(feature) {
-                    return { weight: 1, fill: false };
-                },
-                onEachFeature: function(feature, layer) {
-                    layer.bindPopup(feature.properties.name);
-                }
-            }).addTo(map);
+    var g = svg.append("g");
+   
+    d3.json("muni.json", function(error, muni) {
+        var provs = topojson.feature(muni, muni.objects.provinces);
+        provarea = g.selectAll(".province")
+            .data(provs.features);
+        provarea
+            .enter().append("path")
+            .attr("class", function(d) { return "province " + d.id; })
+            .attr("d", path)
+            .on("click", function(d){clicked(d,1);});
+        
+        distarea = g.selectAll(".district")
+            .data(topojson.feature(muni, muni.objects.districts).features);
+        distarea
+            .enter().append("path")
+            .attr("class", function(d) { return "district " + d.id; })
+            .attr("d", path).style("opacity", 0).style("display", "none")
+            .on("click", function(d){clicked(d,2);});
 
-            munilayer = L.geoJson(warddata, {
-                style: function(feature) {
-                    return { weight: 0.5 };
-                },
-                onEachFeature: function(feature, layer) {
-                    layer.bindPopup(feature.properties.name);
-                }
-            }).addTo(map);*/
-        });
-	</script>
+        diststroke = g.append("path")
+            .datum(topojson.mesh(muni, muni.objects.districts, function (a, b){ return a !== b; }))
+            .attr("class", "dist-border")
+            .attr("d", path)
+            .style("stroke-width", "2px").style("opacity", 0).style("display", "none");
+
+        provstroke = g.append("path")
+            .datum(topojson.mesh(muni, muni.objects.provinces, function (a, b){ return a !== b; }))
+            .attr("class", "prov-border")
+            .attr("d", path)
+            .style("stroke-width", "3px");
+       
+        
+    });
+
+    function clicked(d, l) {
+        var dur = 750;
+        var x, y, k;
+        if (l == 0) {
+            $('#areaname').text("South Africa");
+            x = width/2;
+            y = height/2;
+            k = 1;
+        } else {
+            $('#areaname').text(d.properties.name);
+            var bds = path.bounds(d);
+            var w = bds[0][0];
+            var n = bds[0][1];
+            var e = bds[1][0];
+            var s = bds[1][1];
+            var wd = e - w;
+            var ht = s - n;
+            x = (w + e)/2;
+            y = (n + s)/2;
+            k = Math.min(width/wd, height/ht)*0.9;
+        }
+
+        g.transition().duration(dur)
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
+
+        if (l == 0) {
+            provstroke.transition().duration(dur).style("stroke-width", (3/k) + "px");
+            distarea.transition().duration(dur).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
+            diststroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "2px").each("end", function() { diststroke.style("display", "none"); });
+
+        } else if (l == 1) {
+            provstroke.transition().duration(dur).style("stroke-width", (4/k) + "px");
+            distarea.style("display", "inline");
+            distarea.transition().duration(dur).style("opacity", 1);
+            diststroke.style("display", "inline");
+            diststroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (3/k) + "px");
+        } else if (l == 2) {
+            provstroke.transition().duration(dur).style("stroke-width", (5/k) + "px");
+            distarea.style("display", "inline");
+            distarea.transition().duration(dur).style("opacity", 1);
+            diststroke.style("display", "inline");
+            diststroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (4/k) + "px");
+        }
+    };
+    </script>
+
 </body>
 </html>
