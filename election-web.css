@@ -1,4 +1,4 @@
-body { margin: 8px; }
+body { margin: 8px; font-family: sans-serif; }
 
 #wrapper { position: relative; }
 @media only screen and (max-width: 524px) {
