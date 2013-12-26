@@ -22,9 +22,9 @@
 
     .background { fill: none; pointer-events: all; }
 
-    .province, .district { fill: lightgray; stroke: none; }
-    .province:hover, .district:hover { fill: pink; }
-    .prov-border,.dist-border { fill: none; stroke: white; stroke-linejoin: round; stroke-linecap:round; }
+    .province, .district, .muni { fill: lightgray; stroke: none; }
+    .province:hover, .district:hover, .muni:hover { fill: pink; }
+    .prov-border, .dist-border, .muni-border { fill: none; stroke: white; stroke-linejoin: round; stroke-linecap:round; }
     </style>
 </head>
 <body>
@@ -80,6 +80,20 @@
             .attr("d", path).style("opacity", 0).style("display", "none")
             .on("click", function(d){clicked(d,2);});
 
+        muniarea = g.selectAll(".muni")
+            .data(topojson.feature(muni, muni.objects.munis).features);
+        muniarea
+            .enter().append("path")
+            .attr("class", function(d) { return "muni " + d.id; })
+            .attr("d", path).style("opacity", 0).style("display", "none")
+            .on("click", function(d){clicked(d,3);});
+
+        munistroke = g.append("path")
+            .datum(topojson.mesh(muni, muni.objects.munis, function (a, b){ return a !== b; }))
+            .attr("class", "dist-border")
+            .attr("d", path)
+            .style("stroke-width", "1px").style("opacity", 0).style("display", "none");
+
         diststroke = g.append("path")
             .datum(topojson.mesh(muni, muni.objects.districts, function (a, b){ return a !== b; }))
             .attr("class", "dist-border")
@@ -124,6 +138,9 @@
             provstroke.transition().duration(dur).style("stroke-width", (3/k) + "px");
             distarea.transition().duration(dur).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
             diststroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "2px").each("end", function() { diststroke.style("display", "none"); });
+            muniarea.transition().duration(dur).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
+            munistroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "1px").each("end", function() { munistroke.style("display", "none"); });
+
 
         } else if (l == 1) {
             provstroke.transition().duration(dur).style("stroke-width", (4/k) + "px");
@@ -131,12 +148,19 @@
             distarea.transition().duration(dur).style("opacity", 1);
             diststroke.style("display", "inline");
             diststroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (3/k) + "px");
+            muniarea.transition().duration(dur).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
+            munistroke.transition().duration(dur).style("opacity", 0).style("stroke-width", "2px").each("end", function() { munistroke.style("display", "none"); });
+
         } else if (l == 2) {
             provstroke.transition().duration(dur).style("stroke-width", (5/k) + "px");
             distarea.style("display", "inline");
             distarea.transition().duration(dur).style("opacity", 1);
             diststroke.style("display", "inline");
             diststroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (4/k) + "px");
+            muniarea.style("display", "inline");
+            muniarea.transition().duration(dur).style("opacity", 1);
+            munistroke.style("display", "inline");
+            munistroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (3/k) + "px");
         }
     };
     </script>
