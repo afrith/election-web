@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
 </head>
 <body>
-	<div id="map" style="position:absolute;left:0;right:0;top:0;bottom:0;"></div>
+    <div id="text" style="position:absolute;top:0;bottom:0;left:0;width:100px;">Foo bar</div>
+	<div id="map" style="position:absolute;top:0;bottom:0;left:100px;right:0;"></div>
 
     <script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
 
 	<script>
-		var map = L.map('map');
+		var map = L.map('map', { dragging: false, touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, tap: false, keyboard: false, zoomControl: false });
+        //var map = L.map('map');
 
 		L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
 			attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
@@ -26,21 +28,30 @@
             provdata = topojson.feature(topo, topo.objects.provinces);
             distdata = topojson.feature(topo, topo.objects.districts); 
             munidata = topojson.feature(topo, topo.objects.munis); 
+            warddata = topojson.feature(topo, topo.objects.wards); 
 
             provlayer = L.geoJson(provdata, {
                 style: function(feature) {
-                    return { fill : false, stroke: false };
+                    return { weight: 3, lineCap: 'round' };
                 },
                 onEachFeature: function(feature, layer) {
-                    layer.bindPopup(feature.properties.name);
+                    layer.on('click', function (e) {
+                        //map.setMaxBounds(null);
+                        //map.options.minZoom = 1;
+                        map.fitBounds(layer.getBounds().pad(0.05));
+                        //map.setMaxBounds(layer.getBounds().pad(0.05));
+                        //map.options.minZoom = map.getZoom();
+                    });
                 }
             });
-            map.fitBounds(provlayer.getBounds());
+            map.fitBounds(provlayer.getBounds().pad(0.05));
+            //map.setMaxBounds(provlayer.getBounds().pad(0.05));
+            //map.options.minZoom = map.getZoom();
             provlayer.addTo(map);
 
-            distlayer = L.geoJson(distdata, {
+            /*distlayer = L.geoJson(distdata, {
                 style: function(feature) {
-                    return { fill:false, stroke: false };
+                    return { weight: 1.5, fill: false };
                 },
                 onEachFeature: function(feature, layer) {
                     layer.bindPopup(feature.properties.name);
@@ -49,41 +60,21 @@
 
             munilayer = L.geoJson(munidata, {
                 style: function(feature) {
-                    return { stroke: false };
+                    return { weight: 1, fill: false };
                 },
                 onEachFeature: function(feature, layer) {
                     layer.bindPopup(feature.properties.name);
                 }
             }).addTo(map);
 
-
-            L.geoJson(
-                topojson.mesh(topo, topo.objects.munis,
-                    function(a, b) { return a !== b; }),
-            {
+            munilayer = L.geoJson(warddata, {
                 style: function(feature) {
-                    return { weight: 1, opacity: 1, lineCap: 'butt', lineJoin: 'bevel', clickable: 'false' };
+                    return { weight: 0.5 };
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(feature.properties.name);
                 }
-            }).addTo(map);
-
-
-            L.geoJson(
-                topojson.mesh(topo, topo.objects.districts,
-                    function(a, b) { return a !== b; }),
-            {
-                style: function(feature) {
-                    return { weight: 2, opacity: 1, lineCap: 'butt', lineJoin: 'bevel', clickable: 'false' };
-                }
-            }).addTo(map);
-
-            L.geoJson(
-                topojson.mesh(topo, topo.objects.provinces/*,
-                    function(a, b) { return a !== b; }*/),
-            {
-                style: function(feature) {
-                    return { weight: 3, opacity: 1, lineCap: 'butt', lineJoin: 'bevel', clickable: 'false' };
-                }
-            }).addTo(map);
+            }).addTo(map);*/
         });
 	</script>
 </body>
