@@ -152,26 +152,27 @@ function showProv(scale, sw) {
 }
 
 function showDist(scale, sw, pcode) {
-    distarea.style("display", function(d) {
+    distarea.style("pointer-events", function(d) {
         if ((!pcode) || (muniinfo[d.id].parent == pcode)) {
-            return "inline";
+            return "auto";
         } else {
             return "none";
         }
-    });
+    }).style("display", "inline");
     //distarea.transition().duration(transDuration).style("opacity", 1);
     diststroke.style("display", "inline");
     diststroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
 }
 
 function showMuni(scale, sw, pcode) {
-    muniarea.style("display", function(d) {
+    muniarea.style("pointer-events", function(d) {
         if ((!pcode) || (muniinfo[d.id].parent == pcode)) {
-            return "inline";
+            return "auto";
         } else {
             return "none";
         }
-    });
+    }).style("display", "inline");
+
     //muniarea.transition().duration(transDuration).style("opacity", 1);
     munistroke.style("display", "inline");
     munistroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
@@ -192,8 +193,12 @@ function hideMuni() {
 
 function hovered(d) {
     $("#hovername").text(muniinfo[d.id].name);
+    g.append("path")
+        .attr("d", d3.select(this).attr("d"))
+        .attr("id", "hoverobj");
 };
 function unhovered(d) {
     $("#hovername").text("");
+    d3.select("#hoverobj").remove();
 };
 
