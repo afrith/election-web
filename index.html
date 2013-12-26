@@ -25,6 +25,7 @@
         #legend { position:absolute; left: 510px; top: 0; }
     }
     #hovertext { position:absolute; right:0; bottom:0; text-align: right; }
+    #resetdiv { position:absolute; left:0; bottom:0; }
 
     .background { fill: none; pointer-events: all; }
 
@@ -41,6 +42,7 @@
 
     <div id="wrapper">
     <div id="map">
+    <div id="resetdiv"><a id="reseta" href="/">Reset</a></div>
     <div id="hovertext"><span id="hovername"></span></div>
     </div>
     <div id="legend">
@@ -182,6 +184,11 @@
             munistroke.transition().duration(dur).style("opacity", 1).style("stroke-width", (2/k) + "px");
         }
     };
+
+    $('#reseta').click(function(e) {
+        e.preventDefault();
+        clicked(null, 0);
+    });
 
     function hovered(d) {
         $("#hovername").text(d.properties.name);
