@@ -19,7 +19,7 @@ body { margin: 8px; font-family: sans-serif; }
 #legend { padding-top: 20px; }
 
 #resetdiv { position:absolute; right:0; bottom:0; text-align: right; }
-#hovertext { position:absolute; left:0; bottom:0; }
+#hovertext { position:absolute; left:0; bottom:0; color: darkblue; }
 
 div.header { font-size: 150%; font-weight: bold; }
 
