@@ -32,7 +32,7 @@ d3.json("muni.json", function(error, muni) {
         .on("click", clicked)
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel)
-        .on("mouseover", hovered)
+        .on("mousemove", hovered)
         .on("mouseout", unhovered);
     
     distarea = g.selectAll(".district")
@@ -46,7 +46,7 @@ d3.json("muni.json", function(error, muni) {
         .on("click", clicked)
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel)
-        .on("mouseover", hovered)
+        .on("mousemove", hovered)
         .on("mouseout", unhovered);
 
     muniarea = g.selectAll(".muni")
@@ -60,7 +60,7 @@ d3.json("muni.json", function(error, muni) {
         .on("click", clicked)
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel)
-        .on("mouseover", hovered)
+        .on("mousemove", hovered)
         .on("mouseout", unhovered);
 
     selph = g.append("g").attr("id", "selph");
@@ -224,14 +224,20 @@ function hideMuni() {
 
 }
 
+var hovering = false;
+
 function hovered(d) {
-    $("#hovername").text(muniinfo[d.id].name);
-    hoverph.append("path")
-        .attr("d", d3.select(this).attr("d"))
-        .attr("id", "hoverobj");
+    if (!hovering) {
+        $("#hovername").text(muniinfo[d.id].name);
+        hoverph.append("path")
+            .attr("d", d3.select(this).attr("d"))
+            .attr("id", "hoverobj");
+        hovering = true;
+    }
 };
 function unhovered(d) {
     $("#hovername").text("");
     d3.select("#hoverobj").remove();
+    hovering = false;
 };
 
