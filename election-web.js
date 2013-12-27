@@ -14,11 +14,11 @@ var path = d3.geo.path().projection(projection);
 
 var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " + height);
 
-svg.append("rect").attr("class", "background")
+/*svg.append("rect").attr("class", "background")
     .attr("width", width).attr("height", height)
     .on("click", function() { goToArea("RSA"); })
     .on("mousewheel", mousewheel)
-    .on("DOMMouseScroll", mousewheel);
+    .on("DOMMouseScroll", mousewheel);*/
 
 var g = svg.append("g");
 var hoverph, selph;
@@ -111,6 +111,8 @@ d3.select('#zoomout').on("click", function() {
     zoomOut();
 }).style("display", "none");
 
+var curCode = "RSA";
+
 function zoomOut() {
     var prt = muniinfo[curCode].parent;
     if (prt) {
@@ -119,15 +121,14 @@ function zoomOut() {
 }
 
 function mousewheel(d) {
-    if (d3.event.wheelDelta > 0 || d3.event.detail < 0) {
-        if (d) {
-            d3.event.preventDefault();
+    if (d) {
+        d3.event.preventDefault();
+        if (d3.event.wheelDelta > 0 || d3.event.detail < 0) {
             if (d.type == "Feature") { goToArea(d.id) };
-        }
-    } else {
-        if (curCode !== "RSA") {
-            d3.event.preventDefault();
-            zoomOut();
+        } else {
+            if (curCode !== "RSA") {
+                zoomOut();
+            }
         }
     }
 }
@@ -137,6 +138,10 @@ function clicked(d) {
 }
 
 function goToArea(code) {
+    if (code == curCode) {
+        return;
+    }
+
     curCode = code;
     var d = d3.select('.' + code).datum();
     var l = muniinfo[code].layer;
