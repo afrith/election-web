@@ -24,7 +24,7 @@ body { margin: 8px; font-family: sans-serif; }
 div.header { font-size: 150%; font-weight: bold; }
 
 .background { fill: none; pointer-events: all; }
-.nation, .province, .district, .muni { fill: lightgray; stroke: none; }
+.nation, .province, .district, .muni { fill: gray; stroke: none; }
 .prov-border, .dist-border, .muni-border { fill: none; stroke: white; stroke-linejoin: round; stroke-linecap:round; }
 #hoverobj { fill: lightblue; stroke:none; fill-opacity: 0.5; pointer-events: none; }
-#selpath { fill: gray; stroke:none; fill-opacity: 0.5; pointer-events: none; }
+#selpath { fill: white; stroke:none; fill-opacity: 0.5; pointer-events: none; }
