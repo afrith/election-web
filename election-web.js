@@ -16,12 +16,24 @@ var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " +
 
 svg.append("rect").attr("class", "background")
     .attr("width", width).attr("height", height)
-    .on("click", resetNation);
+    .on("click", function() { goToArea("RSA"); });
 
 var g = svg.append("g");
 var hoverph, selph;
    
 d3.json("muni.json", function(error, muni) {
+    natarea = g.selectAll(".nation")
+        .data(topojson.feature(muni, muni.objects.nation).features);
+    natarea
+        .enter().append("path")
+        .attr("class", function(d) { return "nation " + d.id; })
+        .attr("d", path)
+        /*.on("click", clicked)
+        .on("mousewheel", mousewheel)
+        .on("DOMMouseScroll", mousewheel)
+        .on("mousemove", hovered)
+        .on("mouseout", unhovered)*/;
+
     provarea = g.selectAll(".province")
         .data(topojson.feature(muni, muni.objects.provinces).features);
     provarea
@@ -82,8 +94,8 @@ d3.json("muni.json", function(error, muni) {
         .attr("class", "prov-border")
         .attr("d", path)
         .style("stroke-width", "2px");
-   
-    
+
+    goToArea("RSA")
 });
 
 d3.select('#zoomout').on("click", function() {
@@ -92,13 +104,9 @@ d3.select('#zoomout').on("click", function() {
 }).style("display", "none");
 
 function zoomOut() {
-    if (curCode != '') {
-        var prt = muniinfo[curCode].parent;
-        if (prt) {
-            goToArea(prt);
-        } else {
-            resetNation();
-        }
+    var prt = muniinfo[curCode].parent;
+    if (prt) {
+        goToArea(prt);
     }
 }
 
@@ -115,8 +123,6 @@ function clicked(d) {
     goToArea(d.id);
 }
 
-var curCode = '';
-
 function goToArea(code) {
     curCode = code;
     var d = d3.select('.' + code).datum();
@@ -130,21 +136,31 @@ function goToArea(code) {
         .attr("d", path)
         .attr("id", "selpath");
 
-    var bds = path.bounds(d);
-    var w = bds[0][0];
-    var n = bds[0][1];
-    var e = bds[1][0];
-    var s = bds[1][1];
-    var wd = e - w;
-    var ht = s - n;
-    var x = (w + e)/2;
-    var y = (n + s)/2;
-    var k = Math.min(width/wd, height/ht)*0.9;
+    if (l == 0) {
+        g.transition().duration(transDuration).attr("transform", "");
+        d3.select("#zoomout").style("display", "none");
+    } else {
+        var bds = path.bounds(d);
+        var w = bds[0][0];
+        var n = bds[0][1];
+        var e = bds[1][0];
+        var s = bds[1][1];
+        var wd = e - w;
+        var ht = s - n;
+        var x = (w + e)/2;
+        var y = (n + s)/2;
+        var k = Math.min(width/wd, height/ht)*0.9;
 
-    g.transition().duration(transDuration)
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
+        g.transition().duration(transDuration)
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
+        d3.select("#zoomout").style("display", "inline");
+    }
 
-    if (l == 1) {
+    if (l == 0) {
+        showProv(1, 3);
+        hideDist();
+        hideMuni();
+    } else if (l == 1) {
         showProv(k, 4);
         showDist(k, 2, code);
         hideMuni();
@@ -157,20 +173,6 @@ function goToArea(code) {
         showDist(k, 4, muniinfo[muniinfo[code].parent].parent);
         showMuni(k, 2, muniinfo[code].parent);
     }
-
-    d3.select("#zoomout").style("display", "inline");
-};
-
-function resetNation() {
-    curCode = '';
-    d3.select('#placename').text("South Africa");
-    d3.select('#selpath').remove();
-
-    g.transition().duration(transDuration).attr("transform", "");
-    showProv(1, 3);
-    hideDist();
-    hideMuni();
-    d3.select('#zoomout').style("display", "none");
 };
 
 function showProv(scale, sw) {
