@@ -19,7 +19,7 @@ svg.append("rect").attr("class", "background")
     .on("click", resetNation);
 
 var g = svg.append("g");
-var hoverph;
+var hoverph, selph;
    
 d3.json("muni.json", function(error, muni) {
     var provs = topojson.feature(muni, muni.objects.provinces);
@@ -63,6 +63,7 @@ d3.json("muni.json", function(error, muni) {
         .on("mouseover", hovered)
         .on("mouseout", unhovered);
 
+    selph = g.append("g").attr("id", "selph");
     hoverph = g.append("g").attr("id", "hoverph");
 
     munistroke = g.append("path")
@@ -129,6 +130,13 @@ function goToArea(code) {
     var l = muniinfo[code].layer;
     $('#placename').text(muniinfo[code].name);
 
+    unhovered();
+    d3.select('#selpath').remove();
+    selph.append("path")
+        .datum(d)
+        .attr("d", path)
+        .attr("id", "selpath");
+
     var bds = path.bounds(d);
     var w = bds[0][0];
     var n = bds[0][1];
@@ -163,6 +171,7 @@ function goToArea(code) {
 function resetNation() {
     curCode = '';
     $('#placename').text("South Africa");
+    d3.select('#selpath').remove();
 
     g.transition().duration(transDuration).attr("transform", "");
     showProv(1, 3);

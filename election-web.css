@@ -26,4 +26,5 @@ div.header { font-size: 150%; font-weight: bold; }
 .background { fill: none; pointer-events: all; }
 .province, .district, .muni { fill: lightgray; stroke: none; }
 .prov-border, .dist-border, .muni-border { fill: none; stroke: white; stroke-linejoin: round; stroke-linecap:round; }
-#hoverobj { fill: white; stroke:none; fill-opacity: 0.5; pointer-events: none; }
+#hoverobj { fill: lightblue; stroke:none; fill-opacity: 0.5; pointer-events: none; }
+#selpath { fill: gray; stroke:none; fill-opacity: 0.5; pointer-events: none; }
