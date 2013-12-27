@@ -119,11 +119,16 @@ function zoomOut() {
 }
 
 function mousewheel(d) {
-    d3.event.preventDefault();
     if (d3.event.wheelDelta > 0 || d3.event.detail < 0) {
-        if (d && d.type == "Feature") { goToArea(d.id) };
+        if (d) {
+            d3.event.preventDefault();
+            if (d.type == "Feature") { goToArea(d.id) };
+        }
     } else {
-        zoomOut();
+        if (curCode !== "RSA") {
+            d3.event.preventDefault();
+            zoomOut();
+        }
     }
 }
 
