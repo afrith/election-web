@@ -49,7 +49,7 @@ table.votes .numbercell { text-align: right; }
 
 table.votes tr:nth-child(odd) { background-color: lightgray; }
 table.votes tr:nth-child(even) { background-color: white; }
-table.votes tr.ANC { background-color: #66c2a5; }
-table.votes tr.DA { background-color: #8da0cb; }
-table.votes tr.IFP { background-color: #fc8d62; }
-table.votes tr.COPE { background-color: #ffd92f; }
+table.votes tr.ANC { background-color: #93d3bf; }
+table.votes tr.DA { background-color: #aebbd9; }
+table.votes tr.IFP { background-color: #fcae90; }
+table.votes tr.COPE { background-color: #fee36c; }
