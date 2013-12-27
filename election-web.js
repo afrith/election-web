@@ -87,16 +87,10 @@ d3.json("muni.json", function(error, muni) {
     
 });
 
-/*$('#reseta').click(function(e) {
-    e.preventDefault();
-    resetNation();
-});*/
-
-$('#zoomout').click(function(e) {
-    e.preventDefault();
+d3.select('#zoomout').on("click", function() {
+    d3.event.preventDefault();
     zoomOut();
-});
-$('#zoomout').css("display", "none");
+}).style("display", "none");
 
 function zoomOut() {
     if (curCode != '') {
@@ -128,7 +122,7 @@ function goToArea(code) {
     curCode = code;
     var d = d3.select('.' + code).datum();
     var l = muniinfo[code].layer;
-    $('#placename').text(muniinfo[code].name);
+    d3.select('#placename').text(muniinfo[code].name);
 
     unhovered();
     d3.select('#selpath').remove();
@@ -165,19 +159,19 @@ function goToArea(code) {
         showMuni(k, 2, muniinfo[code].parent);
     }
 
-    $("#zoomout").css("display", "inline");
+    d3.select("#zoomout").style("display", "inline");
 };
 
 function resetNation() {
     curCode = '';
-    $('#placename').text("South Africa");
+    d3.select('#placename').text("South Africa");
     d3.select('#selpath').remove();
 
     g.transition().duration(transDuration).attr("transform", "");
     showProv(1, 3);
     hideDist();
     hideMuni();
-    $('#zoomout').css("display", "none");
+    d3.select('#zoomout').style("display", "none");
 };
 
 function showProv(scale, sw) {
@@ -228,7 +222,7 @@ var hovering = false;
 
 function hovered(d) {
     if (!hovering) {
-        $("#hovername").text(muniinfo[d.id].name);
+        d3.select("#hovername").text(muniinfo[d.id].name);
         hoverph.append("path")
             .attr("d", d3.select(this).attr("d"))
             .attr("id", "hoverobj");
@@ -236,7 +230,7 @@ function hovered(d) {
     }
 };
 function unhovered(d) {
-    $("#hovername").text("");
+    d3.select("#hovername").text("");
     d3.select("#hoverobj").remove();
     hovering = false;
 };
