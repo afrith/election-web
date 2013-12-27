@@ -16,7 +16,9 @@ var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " +
 
 svg.append("rect").attr("class", "background")
     .attr("width", width).attr("height", height)
-    .on("click", function() { goToArea("RSA"); });
+    .on("click", function() { goToArea("RSA"); })
+    .on("mousewheel", mousewheel)
+    .on("DOMMouseScroll", mousewheel);
 
 var g = svg.append("g");
 var hoverph, selph;
@@ -81,19 +83,25 @@ d3.json("muni.json", function(error, muni) {
         .datum(topojson.mesh(muni, muni.objects.munis, function (a, b){ return a !== b; }))
         .attr("class", "muni-border")
         .attr("d", path)
-        .style("stroke-width", "0px").style("opacity", 0).style("display", "none");
+        .style("stroke-width", "0px").style("opacity", 0).style("display", "none")
+        .on("mousewheel", mousewheel)
+        .on("DOMMouseScroll", mousewheel);
 
     diststroke = g.append("path")
         .datum(topojson.mesh(muni, muni.objects.districts, function (a, b){ return a !== b; }))
         .attr("class", "dist-border")
         .attr("d", path)
-        .style("stroke-width", "0px").style("opacity", 0).style("display", "none");
+        .style("stroke-width", "0px").style("opacity", 0).style("display", "none")
+        .on("mousewheel", mousewheel)
+        .on("DOMMouseScroll", mousewheel);
 
     provstroke = g.append("path")
         .datum(topojson.mesh(muni, muni.objects.provinces, function (a, b){ return a !== b; }))
         .attr("class", "prov-border")
         .attr("d", path)
-        .style("stroke-width", "2px");
+        .style("stroke-width", "2px")
+        .on("mousewheel", mousewheel)
+        .on("DOMMouseScroll", mousewheel);
 
     goToArea("RSA")
 });
@@ -113,7 +121,7 @@ function zoomOut() {
 function mousewheel(d) {
     d3.event.preventDefault();
     if (d3.event.wheelDelta > 0 || d3.event.detail < 0) {
-        goToArea(d.id);
+        if (d && d.type == "Feature") { goToArea(d.id) };
     } else {
         zoomOut();
     }
