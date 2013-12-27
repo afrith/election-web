@@ -28,7 +28,7 @@ d3.json("muni.json", function(error, muni) {
         .data(topojson.feature(muni, muni.objects.nation).features);
     natarea
         .enter().append("path")
-        .attr("class", function(d) { return "nation " + d.id; })
+        .attr("class", function(d) { return "nation " + d.id + " winner-" + muniinfo[d.id].winner; })
         .attr("d", path)
         /*.on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -40,7 +40,7 @@ d3.json("muni.json", function(error, muni) {
         .data(topojson.feature(muni, muni.objects.provinces).features);
     provarea
         .enter().append("path")
-        .attr("class", function(d) { return "province " + d.id; })
+        .attr("class", function(d) { return "province " + d.id + " winner-" + muniinfo[d.id].winner; })
         .attr("d", path)
         .on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -52,7 +52,7 @@ d3.json("muni.json", function(error, muni) {
         .data(topojson.feature(muni, muni.objects.districts).features);
     distarea
         .enter().append("path")
-        .attr("class", function(d) { return "district " + d.id; })
+        .attr("class", function(d) { return "district " + d.id + " winner-" + muniinfo[d.id].winner; })
         .attr("d", path)
         //.style("opacity", 0)
         .style("display", "none")
@@ -66,7 +66,7 @@ d3.json("muni.json", function(error, muni) {
         .data(topojson.feature(muni, muni.objects.munis).features);
     muniarea
         .enter().append("path")
-        .attr("class", function(d) { return "muni " + d.id; })
+        .attr("class", function(d) { return "muni " + d.id + " winner-" + muniinfo[d.id].winner; })
         .attr("d", path)
         //.style("opacity", 0)
         .style("display", "none")

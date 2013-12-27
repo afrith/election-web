@@ -19,12 +19,19 @@ body { margin: 8px; font-family: sans-serif; }
 #legend { padding-top: 20px; }
 
 #resetdiv { position:absolute; right:0; bottom:0; text-align: right; }
-#hovertext { position:absolute; left:0; bottom:0; color: darkblue; }
+#hovertext { position:absolute; left:0; bottom:0; }
 
 div.header { font-size: 150%; font-weight: bold; }
 
 .background { fill: none; pointer-events: all; }
-.nation, .province, .district, .muni { fill: gray; stroke: none; }
 .prov-border, .dist-border, .muni-border { fill: none; stroke: white; stroke-linejoin: round; stroke-linecap:round; }
-#hoverobj { fill: lightblue; stroke:none; fill-opacity: 0.5; pointer-events: none; }
-#selpath { fill: white; stroke:none; fill-opacity: 0.5; pointer-events: none; }
+
+.province, .district, .muni { fill: gray; stroke: none; }
+.winner-ANC { fill: #66c2a5; }
+.winner-DA { fill: #8da0cb; }
+.winner-IFP { fill: #fc8d62; }
+.nation { display: none; fill: none; stroke: none; }
+
+
+#hoverobj { fill: white; stroke:none; fill-opacity: 0.5; pointer-events: none; }
+#selpath { fill: white; stroke:none; fill-opacity: 0.3; pointer-events: none; }
