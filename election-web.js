@@ -22,9 +22,8 @@ var g = svg.append("g");
 var hoverph, selph;
    
 d3.json("muni.json", function(error, muni) {
-    var provs = topojson.feature(muni, muni.objects.provinces);
     provarea = g.selectAll(".province")
-        .data(provs.features);
+        .data(topojson.feature(muni, muni.objects.provinces).features);
     provarea
         .enter().append("path")
         .attr("class", function(d) { return "province " + d.id; })
