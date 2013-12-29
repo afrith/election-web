@@ -20,8 +20,11 @@ var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " +
     .on("mousewheel", mousewheel)
     .on("DOMMouseScroll", mousewheel);*/
 
-var g = svg.append("g");
-var hoverph, selph;
+var mapg = svg.append("g").attr("id", "map");
+var areag = mapg.append("g").attr("id", "areas");
+var selph = mapg.append("g").attr("id", "selph");
+var hoverph = mapg.append("g").attr("id", "hoverph");
+var borderg = mapg.append("g").attr("id", "borders");
 
 var placeinfo;
 
@@ -38,7 +41,7 @@ queue()
         .rollup(function (d) { return d[0]; })
         .map(pcsv);
 
-    natarea = g.selectAll(".nation")
+    natarea = areag.selectAll(".nation")
         .data(topojson.feature(topos, topos.objects.nation).features);
     natarea
         .enter().append("path")
@@ -50,7 +53,7 @@ queue()
         .on("mousemove", hovered)
         .on("mouseout", unhovered)*/;
 
-    provarea = g.selectAll(".province")
+    provarea = areag.selectAll(".province")
         .data(topojson.feature(topos, topos.objects.provinces).features);
     provarea
         .enter().append("path")
@@ -62,7 +65,7 @@ queue()
         .on("mousemove", hovered)
         .on("mouseout", unhovered);
     
-    distarea = g.selectAll(".district")
+    distarea = areag.selectAll(".district")
         .data(topojson.feature(topos, topos.objects.districts).features);
     distarea
         .enter().append("path")
@@ -76,7 +79,7 @@ queue()
         .on("mousemove", hovered)
         .on("mouseout", unhovered);
 
-    muniarea = g.selectAll(".muni")
+    muniarea = areag.selectAll(".muni")
         .data(topojson.feature(topos, topos.objects.munis).features);
     muniarea
         .enter().append("path")
@@ -90,10 +93,7 @@ queue()
         .on("mousemove", hovered)
         .on("mouseout", unhovered);
 
-    selph = g.append("g").attr("id", "selph");
-    hoverph = g.append("g").attr("id", "hoverph");
-
-    munistroke = g.append("path")
+    munistroke = borderg.append("path")
         .datum(topojson.mesh(topos, topos.objects.munis, function (a, b){ return a !== b; }))
         .attr("class", "muni-border")
         .attr("d", path)
@@ -101,7 +101,7 @@ queue()
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel);
 
-    diststroke = g.append("path")
+    diststroke = borderg.append("path")
         .datum(topojson.mesh(topos, topos.objects.districts, function (a, b){ return a !== b; }))
         .attr("class", "dist-border")
         .attr("d", path)
@@ -109,7 +109,7 @@ queue()
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel);
 
-    provstroke = g.append("path")
+    provstroke = borderg.append("path")
         .datum(topojson.mesh(topos, topos.objects.provinces, function (a, b){ return a !== b; }))
         .attr("class", "prov-border")
         .attr("d", path)
@@ -169,7 +169,7 @@ function goToArea(code) {
         .attr("id", "selpath");
 
     if (l == 0) {
-        g.transition().duration(transDuration).attr("transform", "");
+        mapg.transition().duration(transDuration).attr("transform", "");
         d3.select("#zoomout").style("display", "none");
     } else {
         var bds = path.bounds(d);
@@ -183,7 +183,7 @@ function goToArea(code) {
         var y = (n + s)/2;
         var k = Math.min(width/wd, height/ht)*0.9;
 
-        g.transition().duration(transDuration)
+        mapg.transition().duration(transDuration)
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
         d3.select("#zoomout").style("display", "inline");
     }
