@@ -61,3 +61,4 @@ table.votes td.partylogo { text-align: center; padding-right: 2px; }
 
 table.votes tr.validrow td { font-weight: bold; }
 table.votes tr.spoiltrow td { font-style: italic; }
+table.votes tr.totalrow td { font-weight:bold; font-style: italic; }

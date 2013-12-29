@@ -147,6 +147,9 @@ queue()
     var splrow = vtfoot.append("tr").attr("class", "spoiltrow");
     splrow.append("td").attr("colspan", 2).text("Spoilt votes");
     splrow.append("td").attr("class", "numbercell spoiltnum");
+    var totrow = vtfoot.append("tr").attr("class", "totalrow");
+    totrow.append("td").attr("colspan", 2).text("Total votes");
+    totrow.append("td").attr("class", "numbercell totalnum");
 
     goToArea("RSA")
 });
@@ -255,6 +258,7 @@ function goToArea(code) {
 
     vtfoot.select(".validnum").text(intfmt(placeinfo[code].valid));
     vtfoot.select(".spoiltnum").text(intfmt(placeinfo[code].spoilt));
+    vtfoot.select(".totalnum").text(intfmt(placeinfo[code].valid + placeinfo[code].spoilt));
 };
 
 function showProv(scale, sw) {
