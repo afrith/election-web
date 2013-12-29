@@ -59,4 +59,5 @@ table.votes tbody tr.row-COPE { background-color: #fee36c; }
 
 table.votes td.partylogo { text-align: center; padding-right: 2px; }
 
+table.votes tr.validrow td { font-weight: bold; }
 table.votes tr.spoiltrow td { font-style: italic; }

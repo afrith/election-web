@@ -139,9 +139,12 @@ queue()
     //hrow.append("th").attr("class", "numbercell").text("Vote %");
     vtbody = vtbl.append("tbody");
     vtfoot = vtbl.append("tfoot");
-    var srow = vtfoot.append("tr").attr("class", "spoiltrow");
-    srow.append("td").attr("colspan", 2).text("Spoilt votes");
-    srow.append("td").attr("class", "numbercell spoiltnum");
+    var valrow = vtfoot.append("tr").attr("class", "validrow");
+    valrow.append("td").attr("colspan", 2).text("Valid votes");
+    valrow.append("td").attr("class", "numbercell validnum");
+    var splrow = vtfoot.append("tr").attr("class", "spoiltrow");
+    splrow.append("td").attr("colspan", 2).text("Spoilt votes");
+    splrow.append("td").attr("class", "numbercell spoiltnum");
 
     goToArea("RSA")
 });
@@ -248,6 +251,7 @@ function goToArea(code) {
 
     tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
 
+    vtfoot.select(".validnum").text(placeinfo[code].valid);
     vtfoot.select(".spoiltnum").text(placeinfo[code].spoilt);
 };
 
