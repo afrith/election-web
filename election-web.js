@@ -12,8 +12,6 @@ var projection = d3.geo.conicEqualArea()
 
 var path = d3.geo.path().projection(projection);
 
-var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " + height);
-
 var intfmt = d3.format(",d")
 
 /*svg.append("rect").attr("class", "background")
@@ -22,11 +20,11 @@ var intfmt = d3.format(",d")
     .on("mousewheel", mousewheel)
     .on("DOMMouseScroll", mousewheel);*/
 
-var mapg = svg.append("g").attr("id", "map");
-var areag = mapg.append("g").attr("id", "areas");
-var selph = mapg.append("g").attr("id", "selph");
-var hoverph = mapg.append("g").attr("id", "hoverph");
-var borderg = mapg.append("g").attr("id", "borders");
+var svg = d3.select("div#map").select("svg");
+svg.attr("viewBox", "0 0 " + width + " " + height);
+var mapg = svg.select("g#map");
+var selph = mapg.select("g#selph");
+var hoverph = mapg.select("g#hoverph");
 
 var placeinfo, parties, votes;
 
@@ -57,6 +55,8 @@ queue()
     votes = d3.nest()
         .key(function (d) { return d.area; })
         .map(votecsv);
+
+    var areag = mapg.select("g#areas");
 
     natarea = areag.selectAll(".nation")
         .data(topojson.feature(topos, topos.objects.nation).features);
@@ -110,6 +110,8 @@ queue()
         .on("mousemove", hovered)
         .on("mouseout", unhovered);
 
+    var borderg = mapg.select("g#borders");
+
     munistroke = borderg.append("path")
         .datum(topojson.mesh(topos, topos.objects.munis, function (a, b){ return a !== b; }))
         .attr("class", "muni-border")
@@ -136,7 +138,7 @@ queue()
 
     goToArea("RSA")
 
-    d3.select("#legend").style("display", "block");
+    d3.select("#wrapper").style("display", "block");
 });
 
 d3.select('#zoomout').on("click", function() {

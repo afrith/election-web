@@ -8,12 +8,20 @@
 </head>
 <body>
 
-    <div id="wrapper">
+    <div id="wrapper" style="display: none;">
     <div id="map">
-    <div id="resetdiv"><a id="zoomout" href="/" style="display:none">Zoom out</a></div>
-    <div id="hovertext"><span id="hovername"></span></div>
+        <div id="resetdiv"><a id="zoomout" href="/" style="display:none">Zoom out</a></div>
+        <div id="hovertext"><span id="hovername"></span></div>
+        <svg>
+            <g id="map">
+                <g id="areas"></g>
+                <g id="selph"></g>
+                <g id="hoverph"></g>
+                <g id="borders"></g>
+            </g>
+        </svg>
     </div>
-    <div id="legend" style="display: none">
+    <div id="legend">
     <div class="header"><span id="placename"></span></div>
         <table class="votes">
         <thead><tr class="voteheader">
