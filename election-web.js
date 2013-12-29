@@ -28,7 +28,7 @@ var borderg = mapg.append("g").attr("id", "borders");
 
 var placeinfo, parties, votes;
 
-var vtbl, vtbody;
+var vtbody, vtfoot;
 
 queue()
     .defer(d3.json, "topos.json")
@@ -132,13 +132,14 @@ queue()
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel);
 
-    vtbl = d3.select("#legend").append("table").attr("class", "votes");
-    var hrow = vtbl.append("tr").attr("class", "voteheader");
+    var vtbl = d3.select("#legend").append("table").attr("class", "votes");
+    var hrow = vtbl.append("thead").append("tr").attr("class", "voteheader");
     hrow.append("th").attr("colspan", 2).text("Party");
     hrow.append("th").attr("class", "numbercell").text("Votes");
     //hrow.append("th").attr("class", "numbercell").text("Vote %");
     vtbody = vtbl.append("tbody");
-    var srow = vtbl.append("tr").attr("class", "spoiltrow");
+    vtfoot = vtbl.append("tfoot");
+    var srow = vtfoot.append("tr").attr("class", "spoiltrow");
     srow.append("td").attr("colspan", 2).text("Spoilt votes");
     srow.append("td").attr("class", "numbercell spoiltnum");
 
@@ -247,7 +248,7 @@ function goToArea(code) {
 
     tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
 
-    vtbl.select(".spoiltnum").text(placeinfo[code].spoilt);
+    vtfoot.select(".spoiltnum").text(placeinfo[code].spoilt);
 };
 
 function showProv(scale, sw) {
