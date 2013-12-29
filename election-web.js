@@ -54,7 +54,7 @@ d3.json("muni.json", function(error, muni) {
         .enter().append("path")
         .attr("class", function(d) { return "district " + d.id + " winner-" + muniinfo[d.id].winner; })
         .attr("d", path)
-        //.style("opacity", 0)
+        .style("opacity", 0)
         .style("display", "none")
         .on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -68,7 +68,7 @@ d3.json("muni.json", function(error, muni) {
         .enter().append("path")
         .attr("class", function(d) { return "muni " + d.id + " winner-" + muniinfo[d.id].winner; })
         .attr("d", path)
-        //.style("opacity", 0)
+        .style("opacity", 0)
         .style("display", "none")
         .on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -205,7 +205,7 @@ function showDist(scale, sw, pcode) {
             return "none";
         }
     }).style("display", "inline");
-    //distarea.transition().duration(transDuration).style("opacity", 1);
+    distarea.transition().duration(transDuration).style("opacity", 1);
     diststroke.style("display", "inline");
     diststroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
 }
@@ -219,20 +219,20 @@ function showMuni(scale, sw, pcode) {
         }
     }).style("display", "inline");
 
-    //muniarea.transition().duration(transDuration).style("opacity", 1);
+    muniarea.transition().duration(transDuration).style("opacity", 1);
     munistroke.style("display", "inline");
     munistroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
 }
 
 function hideDist() {
-    //distarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
-    distarea.style("display", "none");
+    distarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
+    //distarea.style("display", "none");
     diststroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
 }
 
 function hideMuni() {
-    //muniarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
-    muniarea.style("display", "none");
+    muniarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
+    //muniarea.style("display", "none");
     munistroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
 
 }
