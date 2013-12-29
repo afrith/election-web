@@ -26,20 +26,35 @@ var selph = mapg.append("g").attr("id", "selph");
 var hoverph = mapg.append("g").attr("id", "hoverph");
 var borderg = mapg.append("g").attr("id", "borders");
 
-var placeinfo;
+var placeinfo, parties, votes;
+
+var vtbody;
 
 queue()
     .defer(d3.json, "topos.json")
-    .defer(d3.csv, "placeinfo.csv",
-        function(d) {
-            return { code: d.code, name: d.name, layer: +d.layer, parent: d.parent, winner : d.winner };
-        })
-    .await(function (error, topos, pcsv) {
+    .defer(d3.csv, "placeinfo.csv", function(d) {
+        return { code: d.code, name: d.name, layer: +d.layer,
+            parent: d.parent, winner : d.winner };
+    })
+    .defer(d3.csv, "parties.csv")
+    .defer(d3.csv, "votes.csv", function(d) {
+        return { area: d.area, party: d.party, votes: +d.votes };    
+    })
+    .await(function (error, topos, placecsv, partycsv, votecsv) {
 
     placeinfo = d3.nest()
         .key(function (d) { return d.code; })
         .rollup(function (d) { return d[0]; })
-        .map(pcsv);
+        .map(placecsv);
+
+    parties = d3.nest()
+        .key(function (d) { return d.abbrev; })
+        .rollup(function (d) { return d[0]; })
+        .map(partycsv);
+
+    votes = d3.nest()
+        .key(function (d) { return d.area; })
+        .map(votecsv);
 
     natarea = areag.selectAll(".nation")
         .data(topojson.feature(topos, topos.objects.nation).features);
@@ -116,6 +131,13 @@ queue()
         .style("stroke-width", "2px")
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel);
+
+    var vtbl = d3.select("#legend").append("table").attr("class", "votes");
+    var hrow = vtbl.append("tr").attr("class", "voteheader");
+    hrow.append("th").text("Party");
+    hrow.append("th").attr("class", "numbercell").text("Votes");
+    //hrow.append("th").attr("class", "numbercell").text("Vote %");
+    vtbody = vtbl.append("tbody");
 
     goToArea("RSA")
 });
@@ -205,6 +227,21 @@ function goToArea(code) {
         showDist(k, 4, placeinfo[placeinfo[code].parent].parent);
         showMuni(k, 2, placeinfo[code].parent);
     }
+
+    var tabsel = vtbody.selectAll("tr")
+        .data(votes[code], function(d) { return d.party; });
+    
+    var newtr = tabsel.enter().append("tr").attr("class", function(d) { return "row-" + d.party; });
+    newtr.append("td").attr("class", "partyname")
+        .text(function (d) { return parties[d.party].name; });
+    newtr.append("td").attr("class", "numbercell votenum");
+    //newtr.append("td").attr("class", "numbercell voteperc");
+
+    tabsel.select(".votenum").text(function (d) { return d.votes; });
+
+    tabsel.exit().remove();
+
+    tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
 };
 
 function showProv(scale, sw) {
