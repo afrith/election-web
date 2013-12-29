@@ -134,7 +134,7 @@ queue()
 
     var vtbl = d3.select("#legend").append("table").attr("class", "votes");
     var hrow = vtbl.append("tr").attr("class", "voteheader");
-    hrow.append("th").text("Party");
+    hrow.append("th").attr("colspan", 2).text("Party");
     hrow.append("th").attr("class", "numbercell").text("Votes");
     //hrow.append("th").attr("class", "numbercell").text("Vote %");
     vtbody = vtbl.append("tbody");
@@ -232,8 +232,9 @@ function goToArea(code) {
         .data(votes[code], function(d) { return d.party; });
     
     var newtr = tabsel.enter().append("tr").attr("class", function(d) { return "row-" + d.party; });
-    newtr.append("td").attr("class", "partyname")
-        .text(function (d) { return parties[d.party].name; });
+    newtr.append("td").attr("class", "partylogo")
+        .append("img").attr("src", function(d) { return "images/" + d.party + ".png"; });
+    newtr.append("td").text(function (d) { return parties[d.party].name; });
     newtr.append("td").attr("class", "numbercell votenum");
     //newtr.append("td").attr("class", "numbercell voteperc");
 
