@@ -49,9 +49,12 @@ table.votes .numbercell { text-align: right; }
 
 table.votes tr:nth-child(odd) { background-color: lightgray; }
 table.votes tr:nth-child(even) { background-color: white; }
+
 table.votes tr.row-ANC { background-color: #93d3bf; }
 table.votes tr.row-DA { background-color: #aebbd9; }
 table.votes tr.row-IFP { background-color: #fcae90; }
 table.votes tr.row-COPE { background-color: #fee36c; }
 
 table.votes td.partylogo { text-align: center; padding-right: 2px; }
+
+table.votes tr.spoiltrow td { font-style: italic; }
