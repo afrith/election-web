@@ -41,19 +41,21 @@ div.header { font-size: 125%; font-weight: bold;  }
 table.votes { padding-top:1em; font-size:85%; border-spacing: 0; }
 table.votes th { text-align: left; white-space: nowrap; }
 table.votes td, table.votes th { padding-right: 1em; border-top: 1px solid gray; padding-top: 2px; padding-bottom: 2px; height: 22px; }
-table.votes tr:first-child th { border-top: none; }
 table.votes tr :first-child { padding-left: 2px; }
 table.votes tr :last-child { padding-right: 2px; }
 
+table.votes thead th { border-top: none; }
+table.votes tfoot tr:first-child td, table.votes tbody tr:first-child td { border-top: 2px solid gray; }
+
 table.votes .numbercell { text-align: right; }
 
-table.votes tr:nth-child(odd) { background-color: lightgray; }
-table.votes tr:nth-child(even) { background-color: white; }
+table.votes tbody tr:nth-child(odd) { background-color: lightgray; }
+table.votes tbody tr:nth-child(even) { background-color: white; }
 
-table.votes tr.row-ANC { background-color: #93d3bf; }
-table.votes tr.row-DA { background-color: #aebbd9; }
-table.votes tr.row-IFP { background-color: #fcae90; }
-table.votes tr.row-COPE { background-color: #fee36c; }
+table.votes tbody tr.row-ANC { background-color: #93d3bf; }
+table.votes tbody tr.row-DA { background-color: #aebbd9; }
+table.votes tbody tr.row-IFP { background-color: #fcae90; }
+table.votes tbody tr.row-COPE { background-color: #fee36c; }
 
 table.votes td.partylogo { text-align: center; padding-right: 2px; }
 
