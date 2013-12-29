@@ -13,9 +13,29 @@
     <div id="resetdiv"><a id="zoomout" href="/" style="display:none">Zoom out</a></div>
     <div id="hovertext"><span id="hovername"></span></div>
     </div>
-    <div id="legend">
+    <div id="legend" style="display: none">
     <div class="header"><span id="placename"></span></div>
-
+        <table class="votes">
+        <thead><tr class="voteheader">
+            <th colspan=2>Party</th>
+            <th class="numbercell">Votes</th>
+        </tr></thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr class="validrow">
+                <td colspan=2>Valid votes</td>
+                <td class="numbercell validnum"></td>
+            </tr>
+            <tr class="spoiltrow">
+                <td colspan=2>Spoilt votes</td>
+                <td class="numbercell spoiltnum"></td>
+            </tr>
+            <tr class="totalrow">
+                <td colspan=2>Total votes</td>
+                <td class="numbercell totalnum"></td>
+            </tr>
+        </tfoot>
+        </table>
     </div>
 
     </div>

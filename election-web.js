@@ -30,7 +30,7 @@ var borderg = mapg.append("g").attr("id", "borders");
 
 var placeinfo, parties, votes;
 
-var vtbody, vtfoot;
+var vtbody = d3.select("table.votes tbody");
 
 queue()
     .defer(d3.json, "topos.json")
@@ -134,24 +134,9 @@ queue()
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel);
 
-    var vtbl = d3.select("#legend").append("table").attr("class", "votes");
-    var hrow = vtbl.append("thead").append("tr").attr("class", "voteheader");
-    hrow.append("th").attr("colspan", 2).text("Party");
-    hrow.append("th").attr("class", "numbercell").text("Votes");
-    //hrow.append("th").attr("class", "numbercell").text("Vote %");
-    vtbody = vtbl.append("tbody");
-    vtfoot = vtbl.append("tfoot");
-    var valrow = vtfoot.append("tr").attr("class", "validrow");
-    valrow.append("td").attr("colspan", 2).text("Valid votes");
-    valrow.append("td").attr("class", "numbercell validnum");
-    var splrow = vtfoot.append("tr").attr("class", "spoiltrow");
-    splrow.append("td").attr("colspan", 2).text("Spoilt votes");
-    splrow.append("td").attr("class", "numbercell spoiltnum");
-    var totrow = vtfoot.append("tr").attr("class", "totalrow");
-    totrow.append("td").attr("colspan", 2).text("Total votes");
-    totrow.append("td").attr("class", "numbercell totalnum");
-
     goToArea("RSA")
+
+    d3.select("#legend").style("display", "block");
 });
 
 d3.select('#zoomout').on("click", function() {
@@ -256,9 +241,9 @@ function goToArea(code) {
 
     tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
 
-    vtfoot.select(".validnum").text(intfmt(placeinfo[code].valid));
-    vtfoot.select(".spoiltnum").text(intfmt(placeinfo[code].spoilt));
-    vtfoot.select(".totalnum").text(intfmt(placeinfo[code].valid + placeinfo[code].spoilt));
+    d3.select(".validnum").text(intfmt(placeinfo[code].valid));
+    d3.select(".spoiltnum").text(intfmt(placeinfo[code].spoilt));
+    d3.select(".totalnum").text(intfmt(placeinfo[code].valid + placeinfo[code].spoilt));
 };
 
 function showProv(scale, sw) {
