@@ -14,6 +14,8 @@ var path = d3.geo.path().projection(projection);
 
 var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " + height);
 
+var intfmt = d3.format(",d")
+
 /*svg.append("rect").attr("class", "background")
     .attr("width", width).attr("height", height)
     .on("click", function() { goToArea("RSA"); })
@@ -245,14 +247,14 @@ function goToArea(code) {
     newtr.append("td").attr("class", "numbercell votenum");
     //newtr.append("td").attr("class", "numbercell voteperc");
 
-    tabsel.select(".votenum").text(function (d) { return d.votes; });
+    tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
 
     tabsel.exit().remove();
 
     tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
 
-    vtfoot.select(".validnum").text(placeinfo[code].valid);
-    vtfoot.select(".spoiltnum").text(placeinfo[code].spoilt);
+    vtfoot.select(".validnum").text(intfmt(placeinfo[code].valid));
+    vtfoot.select(".spoiltnum").text(intfmt(placeinfo[code].spoilt));
 };
 
 function showProv(scale, sw) {
