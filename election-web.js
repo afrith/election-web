@@ -22,8 +22,22 @@ var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " +
 
 var g = svg.append("g");
 var hoverph, selph;
-   
-d3.json("muni.json", function(error, muni) {
+
+var muniinfo;
+
+queue()
+    .defer(d3.json, "muni.json")
+    .defer(d3.csv, "placeinfo.csv",
+        function(d) {
+            return { code: d.code, name: d.name, layer: +d.layer, parent: d.parent, winner : d.winner };
+        })
+    .await(function (error, muni, placeinfo) {
+
+    muniinfo = d3.nest()
+        .key(function (d) { return d.code; })
+        .rollup(function (d) { return d[0]; })
+        .map(placeinfo);
+
     natarea = g.selectAll(".nation")
         .data(topojson.feature(muni, muni.objects.nation).features);
     natarea
