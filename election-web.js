@@ -12,7 +12,8 @@ var projection = d3.geo.conicEqualArea()
 
 var path = d3.geo.path().projection(projection);
 
-var intfmt = d3.format(",d")
+var intfmt = d3.format(",d");
+var percfmt = d3.format("0.1%");
 
 /*svg.append("rect").attr("class", "background")
     .attr("width", width).attr("height", height)
@@ -227,6 +228,9 @@ function goToArea(code) {
         showMuni(k, 2, placeinfo[code].parent);
     }
 
+    var valid = placeinfo[code].valid;
+    var spoilt = placeinfo[code].spoilt;
+
     var tabsel = vtbody.selectAll("tr")
         .data(votes[code], function(d) { return d.party; });
     
@@ -235,17 +239,18 @@ function goToArea(code) {
         .append("img").attr("src", function(d) { return "images/" + d.party + ".png"; });
     newtr.append("td").text(function (d) { return parties[d.party].name; });
     newtr.append("td").attr("class", "numbercell votenum");
-    //newtr.append("td").attr("class", "numbercell voteperc");
+    newtr.append("td").attr("class", "numbercell voteperc");
 
     tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
+    tabsel.select(".voteperc").text(function (d) { return percfmt(d.votes/valid); });
 
     tabsel.exit().remove();
 
     tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
 
-    d3.select(".validnum").text(intfmt(placeinfo[code].valid));
-    d3.select(".spoiltnum").text(intfmt(placeinfo[code].spoilt));
-    d3.select(".totalnum").text(intfmt(placeinfo[code].valid + placeinfo[code].spoilt));
+    d3.select(".validnum").text(intfmt(valid));
+    d3.select(".spoiltnum").text(intfmt(spoilt));
+    d3.select(".totalnum").text(intfmt(valid + spoilt));
 };
 
 function showProv(scale, sw) {
