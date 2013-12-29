@@ -1,6 +1,9 @@
 var width = 500;
 var height = 450;
 
+var piewidth = 300;
+var pieheight = 300;
+
 var transDuration = 500;
 
 var projection = d3.geo.conicEqualArea()
@@ -30,6 +33,13 @@ var hoverph = mapg.select("g#hoverph");
 var placeinfo, parties, votes;
 
 var vtbody = d3.select("table.votes tbody");
+
+var piesvg = d3.select("div#piechart").select("svg")
+    .attr("viewBox", "0 0 " + piewidth + " " + pieheight)
+    .append("g").attr("transform", "translate(" + piewidth / 2 + "," + pieheight / 2 + ")");
+var radius = Math.min(piewidth, pieheight)/2;
+var arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(0);
+var pie = d3.layout.pie().value(function (d) { return d.votes; });
 
 queue()
     .defer(d3.json, "topos.json")
@@ -228,6 +238,7 @@ function goToArea(code) {
         showMuni(k, 2, placeinfo[code].parent);
     }
 
+    // Update table
     var valid = placeinfo[code].valid;
     var spoilt = placeinfo[code].spoilt;
 
@@ -251,6 +262,16 @@ function goToArea(code) {
     d3.select(".validnum").text(intfmt(valid));
     d3.select(".spoiltnum").text(intfmt(spoilt));
     d3.select(".totalnum").text(intfmt(valid + spoilt));
+
+    // Update pie
+
+    var slices = piesvg.selectAll(".slice")
+        .data(pie(votes[code]), function(d) { return d.data.party; });
+    slices.enter().append("g")
+        .attr("class", function(d) { return "slice " + d.data.party; })
+        .append("path");
+
+    slices.select("path").attr("d", arc);
 };
 
 function showProv(scale, sw) {

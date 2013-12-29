@@ -2,25 +2,43 @@ body { margin: 8px; font-family: sans-serif; }
 
 /* Screen layout */
 #wrapper { position: relative; }
-@media only screen and (max-width: 524px) {
+@media only screen and (max-width: 429px) {
     #map { position:relative; width: 100%; height: 0; padding-bottom: 90%; }
+    #piechart { position: relative; width: 75%; height: 0; margin:0 auto; padding-bottom: 75%; }
 }
-@media only screen and (min-width: 525px) and (max-width:879px) {
-    #map { position:relative; width: 500px; height: 450px; margin:0 auto; }
+@media only screen and (min-width: 430px) and (max-width:774px) {
+    #map { position:relative; width: 400px; height: 360px; margin:0 auto; }
+    #piechart { position: relative; width: 300px; height: 300px; margin:0 auto; }
 }
-@media only screen and (max-height:464px) and (min-width: 880px)
+/*@media only screen and (max-width: 329px) {
+    #piechart { position:relative; width: 100%; height: 0; padding-bottom: 100%; }
+}
+@media only screen and (min-width: 330px) and (max-width: 879px) {
+    #piechart { position: relative; width: 300px; height: 300px; margin:0 auto; }
+}*/
+@media only screen and (min-width: 775px) and (max-width: 899px)
 {
-    #map { position:relative; width: 500px; height: 450px; }
-    #legend { position:absolute; left: 510px; top: 0; }
+    #wrapper { width: 100% }
+    #content { position: relative; }
+    #map { position:relative; width: 400px; height: 360px; }
+    #piechart { position: relative; width: 300px; height: 300px; left:50px;}
+    #legend { position:absolute; left: 410px; top: 0; }
 }
-@media only screen and (min-height: 465px) and (min-width: 880px) {
-    #map { position:fixed; width:500px ; height: 450px; }
-    #legend { position:absolute; left: 510px; top: 0; }
+@media only screen and (min-width: 900px)
+{
+    #wrapper { width:870px; margin:0 auto; }
+    #content { position: relative; }
+    #map { position:relative; width: 400px; height: 360px; }
+    #piechart { position: relative; width: 300px; height: 300px; left:50px;}
+    #legend { position:absolute; left: 410px; top: 0; }
 }
-#legend { padding-top: 20px; }
+#piechart { padding-top: 10px; }
+.header { margin-bottom: 10px; }
+
+table.votes { margin: 0 auto; }
 
 /* Text formatting */
-div.header { font-size: 125%; font-weight: bold;  }
+div.header { font-size: 125%; font-weight: bold; text-align: center; }
 
 /* Map formatting */
 #resetdiv { position:absolute; right:0; bottom:0; text-align: right; }
@@ -62,3 +80,9 @@ table.votes td.partylogo { text-align: center; padding-right: 2px; }
 table.votes tr.validrow td { font-weight: bold; }
 table.votes tr.spoiltrow td { font-style: italic; }
 table.votes tr.totalrow td { font-weight:bold; font-style: italic; }
+
+.slice { stroke: white; fill: lightgray; }
+.slice.ANC { fill: #93d3bf; }
+.slice.DA { fill: #aebbd9; }
+.slice.IFP { fill: #fcae90; }
+.slice.COPE { fill: #fee36c; }
