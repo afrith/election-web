@@ -23,26 +23,26 @@ var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 " + width + " " +
 var g = svg.append("g");
 var hoverph, selph;
 
-var muniinfo;
+var placeinfo;
 
 queue()
-    .defer(d3.json, "muni.json")
+    .defer(d3.json, "topos.json")
     .defer(d3.csv, "placeinfo.csv",
         function(d) {
             return { code: d.code, name: d.name, layer: +d.layer, parent: d.parent, winner : d.winner };
         })
-    .await(function (error, muni, placeinfo) {
+    .await(function (error, topos, pcsv) {
 
-    muniinfo = d3.nest()
+    placeinfo = d3.nest()
         .key(function (d) { return d.code; })
         .rollup(function (d) { return d[0]; })
-        .map(placeinfo);
+        .map(pcsv);
 
     natarea = g.selectAll(".nation")
-        .data(topojson.feature(muni, muni.objects.nation).features);
+        .data(topojson.feature(topos, topos.objects.nation).features);
     natarea
         .enter().append("path")
-        .attr("class", function(d) { return "nation " + d.id + " winner-" + muniinfo[d.id].winner; })
+        .attr("class", function(d) { return "nation " + d.id + " winner-" + placeinfo[d.id].winner; })
         .attr("d", path)
         /*.on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -51,10 +51,10 @@ queue()
         .on("mouseout", unhovered)*/;
 
     provarea = g.selectAll(".province")
-        .data(topojson.feature(muni, muni.objects.provinces).features);
+        .data(topojson.feature(topos, topos.objects.provinces).features);
     provarea
         .enter().append("path")
-        .attr("class", function(d) { return "province " + d.id + " winner-" + muniinfo[d.id].winner; })
+        .attr("class", function(d) { return "province " + d.id + " winner-" + placeinfo[d.id].winner; })
         .attr("d", path)
         .on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -63,10 +63,10 @@ queue()
         .on("mouseout", unhovered);
     
     distarea = g.selectAll(".district")
-        .data(topojson.feature(muni, muni.objects.districts).features);
+        .data(topojson.feature(topos, topos.objects.districts).features);
     distarea
         .enter().append("path")
-        .attr("class", function(d) { return "district " + d.id + " winner-" + muniinfo[d.id].winner; })
+        .attr("class", function(d) { return "district " + d.id + " winner-" + placeinfo[d.id].winner; })
         .attr("d", path)
         .style("opacity", 0)
         .style("display", "none")
@@ -77,10 +77,10 @@ queue()
         .on("mouseout", unhovered);
 
     muniarea = g.selectAll(".muni")
-        .data(topojson.feature(muni, muni.objects.munis).features);
+        .data(topojson.feature(topos, topos.objects.munis).features);
     muniarea
         .enter().append("path")
-        .attr("class", function(d) { return "muni " + d.id + " winner-" + muniinfo[d.id].winner; })
+        .attr("class", function(d) { return "muni " + d.id + " winner-" + placeinfo[d.id].winner; })
         .attr("d", path)
         .style("opacity", 0)
         .style("display", "none")
@@ -94,7 +94,7 @@ queue()
     hoverph = g.append("g").attr("id", "hoverph");
 
     munistroke = g.append("path")
-        .datum(topojson.mesh(muni, muni.objects.munis, function (a, b){ return a !== b; }))
+        .datum(topojson.mesh(topos, topos.objects.munis, function (a, b){ return a !== b; }))
         .attr("class", "muni-border")
         .attr("d", path)
         .style("stroke-width", "0px").style("opacity", 0).style("display", "none")
@@ -102,7 +102,7 @@ queue()
         .on("DOMMouseScroll", mousewheel);
 
     diststroke = g.append("path")
-        .datum(topojson.mesh(muni, muni.objects.districts, function (a, b){ return a !== b; }))
+        .datum(topojson.mesh(topos, topos.objects.districts, function (a, b){ return a !== b; }))
         .attr("class", "dist-border")
         .attr("d", path)
         .style("stroke-width", "0px").style("opacity", 0).style("display", "none")
@@ -110,7 +110,7 @@ queue()
         .on("DOMMouseScroll", mousewheel);
 
     provstroke = g.append("path")
-        .datum(topojson.mesh(muni, muni.objects.provinces, function (a, b){ return a !== b; }))
+        .datum(topojson.mesh(topos, topos.objects.provinces, function (a, b){ return a !== b; }))
         .attr("class", "prov-border")
         .attr("d", path)
         .style("stroke-width", "2px")
@@ -128,7 +128,7 @@ d3.select('#zoomout').on("click", function() {
 var curCode = "RSA";
 
 function zoomOut() {
-    var prt = muniinfo[curCode].parent;
+    var prt = placeinfo[curCode].parent;
     if (prt) {
         goToArea(prt);
     }
@@ -158,8 +158,8 @@ function goToArea(code) {
 
     curCode = code;
     var d = d3.select('.' + code).datum();
-    var l = muniinfo[code].layer;
-    d3.select('#placename').text(muniinfo[code].name);
+    var l = placeinfo[code].layer;
+    d3.select('#placename').text(placeinfo[code].name);
 
     unhovered();
     d3.select('#selpath').remove();
@@ -198,12 +198,12 @@ function goToArea(code) {
         hideMuni();
     } else if (l == 2) {
         showProv(k, 6);
-        showDist(k, 4, muniinfo[code].parent);
+        showDist(k, 4, placeinfo[code].parent);
         showMuni(k, 2, code);
     } else if (l == 3) {
         showProv(k, 6);
-        showDist(k, 4, muniinfo[muniinfo[code].parent].parent);
-        showMuni(k, 2, muniinfo[code].parent);
+        showDist(k, 4, placeinfo[placeinfo[code].parent].parent);
+        showMuni(k, 2, placeinfo[code].parent);
     }
 };
 
@@ -213,7 +213,7 @@ function showProv(scale, sw) {
 
 function showDist(scale, sw, pcode) {
     distarea.style("pointer-events", function(d) {
-        if ((!pcode) || (muniinfo[d.id].parent == pcode)) {
+        if ((!pcode) || (placeinfo[d.id].parent == pcode)) {
             return "auto";
         } else {
             return "none";
@@ -226,7 +226,7 @@ function showDist(scale, sw, pcode) {
 
 function showMuni(scale, sw, pcode) {
     muniarea.style("pointer-events", function(d) {
-        if ((!pcode) || (muniinfo[d.id].parent == pcode)) {
+        if ((!pcode) || (placeinfo[d.id].parent == pcode)) {
             return "auto";
         } else {
             return "none";
@@ -255,7 +255,7 @@ var hovering = false;
 
 function hovered(d) {
     if (!hovering) {
-        d3.select("#hovername").text(muniinfo[d.id].name);
+        d3.select("#hovername").text(placeinfo[d.id].name);
         hoverph.append("path")
             .attr("d", d3.select(this).attr("d"))
             .attr("id", "hoverobj");
