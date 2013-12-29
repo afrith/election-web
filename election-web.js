@@ -33,8 +33,8 @@ var vtbody;
 queue()
     .defer(d3.json, "topos.json")
     .defer(d3.csv, "placeinfo.csv", function(d) {
-        return { code: d.code, name: d.name, layer: +d.layer,
-            parent: d.parent, winner : d.winner };
+        return { code: d.code, name: d.name, layer: +d.layer, parent: d.parent,
+                winner : d.winner, valid: +d.valid, spoilt: +d.spoilt };
     })
     .defer(d3.csv, "parties.csv")
     .defer(d3.csv, "votes.csv", function(d) {

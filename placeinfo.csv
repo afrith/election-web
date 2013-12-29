@@ -1,314 +1,314 @@
-code,name,layer,parent,winner
-RSA,South Africa,0,,ANC
-EC,Eastern Cape,1,RSA,ANC
-FS,Free State,1,RSA,ANC
-GT,Gauteng,1,RSA,ANC
-KZ,KwaZulu-Natal,1,RSA,ANC
-LP,Limpopo,1,RSA,ANC
-MP,Mpumalanga,1,RSA,ANC
-NC,Northern Cape,1,RSA,ANC
-NW,North West,1,RSA,ANC
-WC,Western Cape,1,RSA,DA
-CPT,City of Cape Town Metropolitan Municipality,2,WC,DA
-DC1,West Coast District Municipality,2,WC,DA
-DC10,Cacadu District Municipality,2,EC,ANC
-DC12,Amatole District Municipality,2,EC,ANC
-DC13,Chris Hani District Municipality,2,EC,ANC
-DC14,Ukhahlamba District Municipality,2,EC,ANC
-DC15,O.R.Tambo District Municipality,2,EC,ANC
-DC16,Xhariep District Municipality,2,FS,ANC
-DC17,Motheo District Municipality,2,FS,ANC
-DC18,Lejweleputswa District Municipality,2,FS,ANC
-DC19,Thabo Mofutsanyane District Municipality,2,FS,ANC
-DC2,Cape Winelands District Municipality,2,WC,DA
-DC20,Fezile Dabi District Municipality,2,FS,ANC
-DC21,Ugu District Municipality,2,KZ,ANC
-DC22,UMgungundlovu District Municipality,2,KZ,ANC
-DC23,Uthukela District Municipality,2,KZ,ANC
-DC24,Umzinyathi District Municipality,2,KZ,ANC
-DC25,Amajuba District Municipality,2,KZ,ANC
-DC26,Zululand District Municipality,2,KZ,IFP
-DC27,Umkhanyakude District Municipality,2,KZ,ANC
-DC28,Uthungulu District Municipality,2,KZ,ANC
-DC29,iLembe District Municipality,2,KZ,ANC
-DC3,Overberg District Municipality,2,WC,DA
-DC30,Gert Sibande District Municipality,2,MP,ANC
-DC31,Nkangala District Municipality,2,MP,ANC
-DC32,Ehlanzeni District Municipality,2,MP,ANC
-DC33,Mopani District Municipality,2,LP,ANC
-DC34,Vhembe District Municipality,2,LP,ANC
-DC35,Capricorn District Municipality,2,LP,ANC
-DC36,Waterberg District Municipality,2,LP,ANC
-DC37,Bojanala District Municipality,2,NW,ANC
-DC38,Central District Municipality,2,NW,ANC
-DC39,Bophirima District Municipality,2,NW,ANC
-DC4,Eden District Municipality,2,WC,DA
-DC40,Southern District Municipality,2,NW,ANC
-DC42,Sedibeng District Municipality,2,GT,ANC
-DC43,Sisonke District Municipality,2,KZ,ANC
-DC44,Alfred Nzo District Municipality,2,EC,ANC
-DC45,Kgalagadi District Municipality,2,NC,ANC
-DC46,Metsweding District Municipality,2,GT,ANC
-DC47,Greater Sekhukhune District Municipality,2,LP,ANC
-DC48,West Rand District Municipality,2,GT,ANC
-DC5,Central Karoo District Municipality,2,WC,ANC
-DC6,Namakwa District Municipality,2,NC,ANC
-DC7,Pixley ka Seme District Municipality,2,NC,ANC
-DC8,Siyanda District Municipality,2,NC,ANC
-DC9,Frances Baard District Municipality,2,NC,ANC
-EKU,Ekurhuleni Metropolitan Municipality,2,GT,ANC
-ETH,eThekwini Metropolitan Municipality,2,KZ,ANC
-JHB,City of Johannesburg Metropolitan Municipality,2,GT,ANC
-NMA,Nelson Mandela Bay Metropolitan Municipality,2,EC,ANC
-TSH,City of Tshwane Metropolitan Municipality,2,GT,ANC
-EC101,Camdeboo Local Municipality,3,DC10,ANC
-EC102,Blue Crane Route Local Municipality,3,DC10,ANC
-EC103,Ikwezi Local Municipality,3,DC10,ANC
-EC104,Makana Local Municipality,3,DC10,ANC
-EC105,Ndlambe Local Municipality,3,DC10,ANC
-EC106,Sunday's River Valley Local Municipality,3,DC10,ANC
-EC107,Baviaans Local Municipality,3,DC10,ANC
-EC108,Kouga Local Municipality,3,DC10,ANC
-EC109,Kou-Kamma Local Municipality,3,DC10,ANC
-EC121,Mbhashe Local Municipality,3,DC12,ANC
-EC122,Mnquma Local Municipality,3,DC12,ANC
-EC123,Great Kei Local Municipality,3,DC12,ANC
-EC124,Amahlathi Local Municipality,3,DC12,ANC
-EC125,Buffalo City Local Municipality,3,DC12,ANC
-EC126,Ngqushwa Local Municipality,3,DC12,ANC
-EC127,Nkonkobe Local Municipality,3,DC12,ANC
-EC128,Nxuba Local Municipality,3,DC12,ANC
-EC131,Inxuba Yethemba Local Municipality,3,DC13,ANC
-EC132,Tsolwana Local Municipality,3,DC13,ANC
-EC133,Inkwanca Local Municipality,3,DC13,ANC
-EC134,Lukanji Local Municipality,3,DC13,ANC
-EC135,Intsika Yethu Local Municipality,3,DC13,ANC
-EC136,Emalahleni Local Municipality,3,DC13,ANC
-EC137,Engcobo Local Municipality,3,DC13,ANC
-EC138,Sakhisizwe Local Municipality,3,DC13,ANC
-EC141,Elundini Local Municipality,3,DC14,ANC
-EC142,Senqu Local Municipality,3,DC14,ANC
-EC143,Maletswai Local Municipality,3,DC14,ANC
-EC144,Gariep Local Municipality,3,DC14,ANC
-EC151,Mbizana Local Municipality,3,DC15,ANC
-EC152,Ntabankulu Local Municipality,3,DC15,ANC
-EC153,Qaukeni Local Municipality,3,DC15,ANC
-EC154,Port St Johns Local Municipality,3,DC15,ANC
-EC155,Nyandeni Local Municipality,3,DC15,ANC
-EC156,Mhlontlo Local Municipality,3,DC15,ANC
-EC157,King Sabata Dalindyebo Local Municipality,3,DC15,ANC
-EC441,Matatiele Local Municipality,3,DC44,ANC
-EC442,Umzimvubu Local Municipality,3,DC44,ANC
-ECDMA10,Cacadu District Management Area,3,DC10,DA
-ECDMA13,Chris Hani District Management Area,3,DC13,ANC
-FS161,Letsemeng Local Municipality,3,DC16,ANC
-FS162,Kopanong Local Municipality,3,DC16,ANC
-FS163,Mohokare Local Municipality,3,DC16,ANC
-FS171,Naledi Local Municipality,3,DC17,ANC
-FS172,Mangaung Local Municipality,3,DC17,ANC
-FS173,Mantsopa Local Municipality,3,DC17,ANC
-FS181,Masilonyana Local Municipality,3,DC18,ANC
-FS182,Tokologo Local Municipality,3,DC18,ANC
-FS183,Tswelopele Local Municipality,3,DC18,ANC
-FS184,Matjhabeng Local Municipality,3,DC18,ANC
-FS185,Nala Local Municipality,3,DC18,ANC
-FS191,Setsoto Local Municipality,3,DC19,ANC
-FS192,Dihlabeng Local Municipality,3,DC19,ANC
-FS193,Nketoana Local Municipality,3,DC19,ANC
-FS194,Maluti a Phofung Local Municipality,3,DC19,ANC
-FS195,Phumelela Local Municipality,3,DC19,ANC
-FS201,Moqhaka Local Municipality,3,DC20,ANC
-FS203,Ngwathe Local Municipality,3,DC20,ANC
-FS204,Metsimaholo Local Municipality,3,DC20,ANC
-FS205,Mafube Local Municipality,3,DC20,ANC
-FSDMA19,Thabo Mofutsanyane District Management Area,3,DC19,DA
-GT421,Emfuleni Local Municipality,3,DC42,ANC
-GT422,Midvaal Local Municipality,3,DC42,ANC
-GT423,Lesedi Local Municipality,3,DC42,ANC
-GT461,Nokeng tsa Taemane Local Municipality,3,DC46,ANC
-GT462,Kungwini Local Municipality,3,DC46,ANC
-GT481,Mogale City Local Municipality,3,DC48,ANC
-GT482,Randfontein Local Municipality,3,DC48,ANC
-GT483,Westonaria Local Municipality,3,DC48,ANC
-GT484,Merafong City Local Municipality,3,DC48,ANC
-GTDMA48,West Rand District Management Area,3,DC48,ANC
-KZN211,Vulamehlo Local Municipality,3,DC21,ANC
-KZN212,Umdoni Local Municipality,3,DC21,ANC
-KZN213,Umzumbe Local Municipality,3,DC21,ANC
-KZN214,UMuziwabantu Local Municipality,3,DC21,ANC
-KZN215,Ezingoleni Local Municipality,3,DC21,ANC
-KZN216,Hibiscus Coast Local Municipality,3,DC21,ANC
-KZN221,uMshwathi Local Municipality,3,DC22,ANC
-KZN222,uMngeni Local Municipality,3,DC22,ANC
-KZN223,Mooi Mpofana Local Municipality,3,DC22,ANC
-KZN224,Impendle Local Municipality,3,DC22,ANC
-KZN225,The Msunduzi Local Municipality,3,DC22,ANC
-KZN226,Mkhambathini Local Municipality,3,DC22,ANC
-KZN227,Richmond Local Municipality,3,DC22,ANC
-KZN232,Emnambithi/Ladysmith Local Municipality,3,DC23,ANC
-KZN233,Indaka Local Municipality,3,DC23,IFP
-KZN234,Umtshezi Local Municipality,3,DC23,ANC
-KZN235,Okhahlamba Local Municipality,3,DC23,ANC
-KZN236,Imbabazane Local Municipality,3,DC23,ANC
-KZN241,Endumeni Local Municipality,3,DC24,ANC
-KZN242,Nqutu Local Municipality,3,DC24,IFP
-KZN244,Msinga Local Municipality,3,DC24,IFP
-KZN245,Umvoti Local Municipality,3,DC24,ANC
-KZN252,Newcastle Local Municipality,3,DC25,ANC
-KZN253,Utrecht Local Municipality,3,DC25,ANC
-KZN254,Dannhauser Local Municipality,3,DC25,ANC
-KZN261,eDumbe Local Municipality,3,DC26,IFP
-KZN262,UPhongolo Local Municipality,3,DC26,ANC
-KZN263,Abaqulusi Local Municipality,3,DC26,ANC
-KZN265,Nongoma Local Municipality,3,DC26,IFP
-KZN266,Ulundi Local Municipality,3,DC26,IFP
-KZN271,Umhlabuyalingana Local Municipality,3,DC27,ANC
-KZN272,Jozini Local Municipality,3,DC27,IFP
-KZN273,The Big 5 False Bay Local Municipality,3,DC27,IFP
-KZN274,Hlabisa Local Municipality,3,DC27,IFP
-KZN275,Mtubatuba Local Municipality,3,DC27,ANC
-KZN281,Mbonambi Local Municipality,3,DC28,ANC
-KZN282,uMhlathuze Local Municipality,3,DC28,ANC
-KZN283,Ntambanana Local Municipality,3,DC28,IFP
-KZN284,uMlalazi Local Municipality,3,DC28,ANC
-KZN285,Mthonjaneni Local Municipality,3,DC28,IFP
-KZN286,Nkandla Local Municipality,3,DC28,ANC
-KZN291,eNdondakusuka Local Municipality,3,DC29,ANC
-KZN292,KwaDukuza Local Municipality,3,DC29,ANC
-KZN293,Ndwedwe Local Municipality,3,DC29,ANC
-KZN294,Maphumulo Local Municipality,3,DC29,ANC
-KZN431,Ingwe Local Municipality,3,DC43,ANC
-KZN432,Kwa Sani Local Municipality,3,DC43,ANC
-KZN433,Greater Kokstad Local Municipality,3,DC43,ANC
-KZN434,Ubuhlebezwe Local Municipality,3,DC43,ANC
-KZN435,Umzimkhulu Local Municipality,3,DC43,ANC
-KZNDMA22,UMgungundlovu District Management Area,3,DC22,ANC
-KZNDMA23,Uthukela District Management Area,3,DC23,ANC
-KZNDMA27,Umkhanyakude District Management Area,3,DC27,ANC
-KZNDMA43,Sisonke District Management Area,3,DC43,ANC
-LIM331,Greater Giyani Local Municipality,3,DC33,ANC
-LIM332,Greater Letaba Local Municipality,3,DC33,ANC
-LIM333,Greater Tzaneen Local Municipality,3,DC33,ANC
-LIM334,Ba-Phalaborwa Local Municipality,3,DC33,ANC
-LIM335,Maruleng Local Municipality,3,DC33,ANC
-LIM341,Musina Local Municipality,3,DC34,ANC
-LIM342,Mutale Local Municipality,3,DC34,ANC
-LIM343,Thulamela Local Municipality,3,DC34,ANC
-LIM344,Makhado Local Municipality,3,DC34,ANC
-LIM351,Blouberg Local Municipality,3,DC35,ANC
-LIM352,Aganang Local Municipality,3,DC35,ANC
-LIM353,Molemole Local Municipality,3,DC35,ANC
-LIM354,Polokwane Local Municipality,3,DC35,ANC
-LIM355,Lepele-Nkumpi Local Municipality,3,DC35,ANC
-LIM361,Thabazimbi Local Municipality,3,DC36,ANC
-LIM362,Lephalale Local Municipality,3,DC36,ANC
-LIM364,Mookgopong Local Municipality,3,DC36,ANC
-LIM365,Modimolle Local Municipality,3,DC36,ANC
-LIM366,Bela-Bela Local Municipality,3,DC36,ANC
-LIM367,Mogalakwena Local Municipality,3,DC36,ANC
-LIM471,Greater Marble Hall Local Municipality,3,DC47,ANC
-LIM472,Elias Motsoaledi Local Municipality,3,DC47,ANC
-LIM473,Makhuduthamaga Local Municipality,3,DC47,ANC
-LIM474,Fetakgomo Local Municipality,3,DC47,ANC
-LIM475,Greater Tubatse Local Municipality,3,DC47,ANC
-LIMDMA33,Mopani District Management Area,3,DC33,ANC
-MP301,Albert Luthuli Local Municipality,3,DC30,ANC
-MP302,Msukaligwa Local Municipality,3,DC30,ANC
-MP303,Mkhondo Local Municipality,3,DC30,ANC
-MP304,Seme Local Municipality,3,DC30,ANC
-MP305,Lekwa Local Municipality,3,DC30,ANC
-MP306,Dipaleseng Local Municipality,3,DC30,ANC
-MP307,Govan Mbeki Local Municipality,3,DC30,ANC
-MP311,Delmas Local Municipality,3,DC31,ANC
-MP312,Emalahleni Local Municipality,3,DC31,ANC
-MP313,Steve Tshwete Local Municipality,3,DC31,ANC
-MP314,Highlands Local Municipality,3,DC31,ANC
-MP315,Thembisile Local Municipality,3,DC31,ANC
-MP316,Dr JS Moroka Local Municipality,3,DC31,ANC
-MP321,Thaba Chweu Local Municipality,3,DC32,ANC
-MP322,Mbombela Local Municipality,3,DC32,ANC
-MP323,Umjindi Local Municipality,3,DC32,ANC
-MP324,Nkomazi Local Municipality,3,DC32,ANC
-MP325,Bushbuckridge Local Municipality,3,DC32,ANC
-MPDMA32,Ehlanzeni District Management Area,3,DC32,ANC
-NC061,Richtersveld Local Municipality,3,DC6,ANC
-NC062,Nama Khoi Local Municipality,3,DC6,ANC
-NC064,Kamiesberg Local Municipality,3,DC6,ANC
-NC065,Hantam Local Municipality,3,DC6,ANC
-NC066,Karoo Hoogland Local Municipality,3,DC6,ANC
-NC067,Khâi-Ma Local Municipality,3,DC6,ANC
-NC071,Ubuntu Local Municipality,3,DC7,ANC
-NC072,Umsobomvu Local Municipality,3,DC7,ANC
-NC073,Emthanjeni Local Municipality,3,DC7,ANC
-NC074,Kareeberg Local Municipality,3,DC7,ANC
-NC075,Renosterberg Local Municipality,3,DC7,ANC
-NC076,Thembelihle Local Municipality,3,DC7,ANC
-NC077,Siyathemba Local Municipality,3,DC7,ANC
-NC078,Siyancuma Local Municipality,3,DC7,ANC
-NC081,Mier Local Municipality,3,DC8,ANC
-NC082,Kai !Garib Local Municipality,3,DC8,ANC
-NC083,//Khara Hais Local Municipality,3,DC8,ANC
-NC084,!Kheis Local Municipality,3,DC8,ANC
-NC085,Tsantsabane Local Municipality,3,DC8,ANC
-NC086,Kgatelopele Local Municipality,3,DC8,ANC
-NC091,Sol Plaatjie Local Municipality,3,DC9,ANC
-NC092,Dikgatlong Local Municipality,3,DC9,ANC
-NC093,Magareng Local Municipality,3,DC9,ANC
-NC094,Phokwane Local Municipality,3,DC9,ANC
-NC451,Moshaweng Local Municipality,3,DC45,ANC
-NC452,Ga-Segonyana Local Municipality,3,DC45,ANC
-NC453,Gamagara Local Municipality,3,DC45,ANC
-NCDMA06,Namakwa District Management Area,3,DC6,DA
-NCDMA07,Pixley ka Seme District Management Area,3,DC7,ANC
-NCDMA08,Siyanda District Management Area,3,DC8,ANC
-NCDMA09,Frances Baard District Management Area,3,DC9,ANC
-NCDMA45,Kgalagadi District Management Area,3,DC45,ANC
-NW371,Moretele Local Municipality,3,DC37,ANC
-NW372,Madibeng Local Municipality,3,DC37,ANC
-NW373,Rustenburg Local Municipality,3,DC37,ANC
-NW374,Kgetlengrivier Local Municipality,3,DC37,ANC
-NW375,Moses Kotane Local Municipality,3,DC37,ANC
-NW381,Ratlou Local Municipality,3,DC38,ANC
-NW382,Tswaing Local Municipality,3,DC38,ANC
-NW383,Mafikeng Local Municipality,3,DC38,ANC
-NW384,Ditsobotla Local Municipality,3,DC38,ANC
-NW385,Ramotshere Moiloa Local Municipality,3,DC38,ANC
-NW391,Kagisano Local Municipality,3,DC39,ANC
-NW392,Naledi Local Municipality,3,DC39,ANC
-NW393,Mamusa Local Municipality,3,DC39,ANC
-NW394,Greater Taung Local Municipality,3,DC39,ANC
-NW395,Molopo Local Municipality,3,DC39,ANC
-NW396,Lekwa-Teemane Local Municipality,3,DC39,ANC
-NW401,Ventersdorp Local Municipality,3,DC40,ANC
-NW402,Potchefstroom Local Municipality,3,DC40,ANC
-NW403,Matlosana Local Municipality,3,DC40,ANC
-NW404,Maquassi Hills Local Municipality,3,DC40,ANC
-WC011,Matzikama Local Municipality,3,DC1,DA
-WC012,Cederberg Local Municipality,3,DC1,DA
-WC013,Bergrivier Local Municipality,3,DC1,DA
-WC014,Saldanha Bay Local Municipality,3,DC1,DA
-WC015,Swartland Local Municipality,3,DC1,DA
-WC022,Witzenberg Local Municipality,3,DC2,ANC
-WC023,Drakenstein Local Municipality,3,DC2,DA
-WC024,Stellenbosch Local Municipality,3,DC2,DA
-WC025,Breede Valley Local Municipality,3,DC2,DA
-WC026,Breede River/Winelands Local Municipality,3,DC2,DA
-WC031,Theewaterskloof Local Municipality,3,DC3,DA
-WC032,Overstrand Local Municipality,3,DC3,DA
-WC033,Cape Agulhas Local Municipality,3,DC3,DA
-WC034,Swellendam Local Municipality,3,DC3,DA
-WC041,Kannaland Local Municipality,3,DC4,DA
-WC042,Hessequa Local Municipality,3,DC4,DA
-WC043,Mossel Bay Local Municipality,3,DC4,DA
-WC044,George Local Municipality,3,DC4,DA
-WC045,Oudtshoorn Local Municipality,3,DC4,DA
-WC047,Plettenberg Bay Local Municipality,3,DC4,ANC
-WC048,Knysna Local Municipality,3,DC4,ANC
-WC051,Laingsburg Local Municipality,3,DC5,DA
-WC052,Prince Albert Local Municipality,3,DC5,DA
-WC053,Beaufort West Local Municipality,3,DC5,DA
-WCDMA01,West Coast District Management Area,3,DC1,DA
-WCDMA02,Cape Winelands District Management Area,3,DC2,DA
-WCDMA03,Overberg District Management Area,3,DC3,DA
-WCDMA04,Eden District Management Area,3,DC4,DA
-WCDMA05,Central Karoo District Management Area,3,DC5,ANC
+code,name,layer,parent,winner,valid,spoilt
+RSA,South Africa,0,,ANC,17680729,239237
+EC,Eastern Cape,1,RSA,ANC,2309643,34455
+FS,Free State,1,RSA,ANC,1051858,17269
+GT,Gauteng,1,RSA,ANC,4345613,46086
+KZ,KwaZulu-Natal,1,RSA,ANC,3527234,47092
+LP,Limpopo,1,RSA,ANC,1547636,22956
+MP,Mpumalanga,1,RSA,ANC,1343253,20583
+NC,Northern Cape,1,RSA,ANC,414502,6988
+NW,North West,1,RSA,ANC,1113411,22290
+WC,Western Cape,1,RSA,DA,2027579,21518
+CPT,City of Cape Town Metropolitan Municipality,2,WC,DA,1348762,13614
+DC1,West Coast District Municipality,2,WC,DA,109300,1127
+DC10,Cacadu District Municipality,2,EC,ANC,173603,2159
+DC12,Amatole District Municipality,2,EC,ANC,640197,8682
+DC13,Chris Hani District Municipality,2,EC,ANC,277295,4452
+DC14,Ukhahlamba District Municipality,2,EC,ANC,114346,2136
+DC15,O.R.Tambo District Municipality,2,EC,ANC,524704,8738
+DC16,Xhariep District Municipality,2,FS,ANC,45755,704
+DC17,Motheo District Municipality,2,FS,ANC,320946,4427
+DC18,Lejweleputswa District Municipality,2,FS,ANC,236394,3941
+DC19,Thabo Mofutsanyane District Municipality,2,FS,ANC,261748,5105
+DC2,Cape Winelands District Municipality,2,WC,DA,244409,2980
+DC20,Fezile Dabi District Municipality,2,FS,ANC,186717,3084
+DC21,Ugu District Municipality,2,KZ,ANC,254579,4046
+DC22,UMgungundlovu District Municipality,2,KZ,ANC,368700,4164
+DC23,Uthukela District Municipality,2,KZ,ANC,203581,3070
+DC24,Umzinyathi District Municipality,2,KZ,ANC,146343,2521
+DC25,Amajuba District Municipality,2,KZ,ANC,144261,2529
+DC26,Zululand District Municipality,2,KZ,IFP,242719,3058
+DC27,Umkhanyakude District Municipality,2,KZ,ANC,186134,2952
+DC28,Uthungulu District Municipality,2,KZ,ANC,313505,4384
+DC29,iLembe District Municipality,2,KZ,ANC,202002,3180
+DC3,Overberg District Municipality,2,WC,DA,89138,1107
+DC30,Gert Sibande District Municipality,2,MP,ANC,353432,5740
+DC31,Nkangala District Municipality,2,MP,ANC,441717,7153
+DC32,Ehlanzeni District Municipality,2,MP,ANC,547891,7683
+DC33,Mopani District Municipality,2,LP,ANC,340323,4472
+DC34,Vhembe District Municipality,2,LP,ANC,378962,4988
+DC35,Capricorn District Municipality,2,LP,ANC,334673,5224
+DC36,Waterberg District Municipality,2,LP,ANC,199857,3061
+DC37,Bojanala District Municipality,2,NW,ANC,485475,8733
+DC38,Central District Municipality,2,NW,ANC,241132,5803
+DC39,Bophirima District Municipality,2,NW,ANC,144029,4040
+DC4,Eden District Municipality,2,WC,DA,208806,2343
+DC40,Southern District Municipality,2,NW,ANC,242544,3690
+DC42,Sedibeng District Municipality,2,GT,ANC,342592,3852
+DC43,Sisonke District Municipality,2,KZ,ANC,149146,2206
+DC44,Alfred Nzo District Municipality,2,EC,ANC,124431,2612
+DC45,Kgalagadi District Municipality,2,NC,ANC,75731,1764
+DC46,Metsweding District Municipality,2,GT,ANC,81796,845
+DC47,Greater Sekhukhune District Municipality,2,LP,ANC,293733,5202
+DC48,West Rand District Municipality,2,GT,ANC,301523,3578
+DC5,Central Karoo District Municipality,2,WC,ANC,24004,314
+DC6,Namakwa District Municipality,2,NC,ANC,46884,500
+DC7,Pixley ka Seme District Municipality,2,NC,ANC,70475,1171
+DC8,Siyanda District Municipality,2,NC,ANC,80533,1271
+DC9,Frances Baard District Municipality,2,NC,ANC,140779,2266
+EKU,Ekurhuleni Metropolitan Municipality,2,GT,ANC,1109337,11431
+ETH,eThekwini Metropolitan Municipality,2,KZ,ANC,1315222,14962
+JHB,City of Johannesburg Metropolitan Municipality,2,GT,ANC,1546041,16563
+NMA,Nelson Mandela Bay Metropolitan Municipality,2,EC,ANC,454456,5667
+TSH,City of Tshwane Metropolitan Municipality,2,GT,ANC,960210,9305
+EC101,Camdeboo Local Municipality,3,DC10,ANC,15153,232
+EC102,Blue Crane Route Local Municipality,3,DC10,ANC,13228,173
+EC103,Ikwezi Local Municipality,3,DC10,ANC,3978,82
+EC104,Makana Local Municipality,3,DC10,ANC,35633,436
+EC105,Ndlambe Local Municipality,3,DC10,ANC,26954,237
+EC106,Sunday's River Valley Local Municipality,3,DC10,ANC,20803,238
+EC107,Baviaans Local Municipality,3,DC10,ANC,5056,78
+EC108,Kouga Local Municipality,3,DC10,ANC,37847,506
+EC109,Kou-Kamma Local Municipality,3,DC10,ANC,13108,148
+EC121,Mbhashe Local Municipality,3,DC12,ANC,78812,1268
+EC122,Mnquma Local Municipality,3,DC12,ANC,88412,1420
+EC123,Great Kei Local Municipality,3,DC12,ANC,17319,192
+EC124,Amahlathi Local Municipality,3,DC12,ANC,48775,669
+EC125,Buffalo City Local Municipality,3,DC12,ANC,312693,3785
+EC126,Ngqushwa Local Municipality,3,DC12,ANC,31931,473
+EC127,Nkonkobe Local Municipality,3,DC12,ANC,53219,648
+EC128,Nxuba Local Municipality,3,DC12,ANC,9036,227
+EC131,Inxuba Yethemba Local Municipality,3,DC13,ANC,23014,354
+EC132,Tsolwana Local Municipality,3,DC13,ANC,12359,203
+EC133,Inkwanca Local Municipality,3,DC13,ANC,7931,119
+EC134,Lukanji Local Municipality,3,DC13,ANC,69189,969
+EC135,Intsika Yethu Local Municipality,3,DC13,ANC,56618,973
+EC136,Emalahleni Local Municipality,3,DC13,ANC,42569,638
+EC137,Engcobo Local Municipality,3,DC13,ANC,44010,882
+EC138,Sakhisizwe Local Municipality,3,DC13,ANC,21565,312
+EC141,Elundini Local Municipality,3,DC14,ANC,40927,832
+EC142,Senqu Local Municipality,3,DC14,ANC,46040,762
+EC143,Maletswai Local Municipality,3,DC14,ANC,15584,380
+EC144,Gariep Local Municipality,3,DC14,ANC,11795,162
+EC151,Mbizana Local Municipality,3,DC15,ANC,79962,1341
+EC152,Ntabankulu Local Municipality,3,DC15,ANC,41770,827
+EC153,Qaukeni Local Municipality,3,DC15,ANC,82270,1472
+EC154,Port St Johns Local Municipality,3,DC15,ANC,45378,783
+EC155,Nyandeni Local Municipality,3,DC15,ANC,79175,1306
+EC156,Mhlontlo Local Municipality,3,DC15,ANC,61826,899
+EC157,King Sabata Dalindyebo Local Municipality,3,DC15,ANC,134323,2110
+EC441,Matatiele Local Municipality,3,DC44,ANC,62760,1680
+EC442,Umzimvubu Local Municipality,3,DC44,ANC,61671,932
+ECDMA10,Cacadu District Management Area,3,DC10,DA,1843,29
+ECDMA13,Chris Hani District Management Area,3,DC13,ANC,40,2
+FS161,Letsemeng Local Municipality,3,DC16,ANC,13159,201
+FS162,Kopanong Local Municipality,3,DC16,ANC,19410,251
+FS163,Mohokare Local Municipality,3,DC16,ANC,13186,252
+FS171,Naledi Local Municipality,3,DC17,ANC,9211,194
+FS172,Mangaung Local Municipality,3,DC17,ANC,291778,3886
+FS173,Mantsopa Local Municipality,3,DC17,ANC,19957,347
+FS181,Masilonyana Local Municipality,3,DC18,ANC,24663,493
+FS182,Tokologo Local Municipality,3,DC18,ANC,8953,247
+FS183,Tswelopele Local Municipality,3,DC18,ANC,18530,381
+FS184,Matjhabeng Local Municipality,3,DC18,ANC,155391,2275
+FS185,Nala Local Municipality,3,DC18,ANC,28857,545
+FS191,Setsoto Local Municipality,3,DC19,ANC,42476,902
+FS192,Dihlabeng Local Municipality,3,DC19,ANC,50996,934
+FS193,Nketoana Local Municipality,3,DC19,ANC,21385,330
+FS194,Maluti a Phofung Local Municipality,3,DC19,ANC,127914,2544
+FS195,Phumelela Local Municipality,3,DC19,ANC,18720,394
+FS201,Moqhaka Local Municipality,3,DC20,ANC,60102,1163
+FS203,Ngwathe Local Municipality,3,DC20,ANC,48636,651
+FS204,Metsimaholo Local Municipality,3,DC20,ANC,56143,909
+FS205,Mafube Local Municipality,3,DC20,ANC,21836,361
+FSDMA19,Thabo Mofutsanyane District Management Area,3,DC19,DA,257,1
+GT421,Emfuleni Local Municipality,3,DC42,ANC,270677,3009
+GT422,Midvaal Local Municipality,3,DC42,ANC,35940,412
+GT423,Lesedi Local Municipality,3,DC42,ANC,35975,431
+GT461,Nokeng tsa Taemane Local Municipality,3,DC46,ANC,25810,308
+GT462,Kungwini Local Municipality,3,DC46,ANC,55986,537
+GT481,Mogale City Local Municipality,3,DC48,ANC,137170,1420
+GT482,Randfontein Local Municipality,3,DC48,ANC,56556,681
+GT483,Westonaria Local Municipality,3,DC48,ANC,36204,597
+GT484,Merafong City Local Municipality,3,DC48,ANC,69692,846
+GTDMA48,West Rand District Management Area,3,DC48,ANC,1901,34
+KZN211,Vulamehlo Local Municipality,3,DC21,ANC,27755,536
+KZN212,Umdoni Local Municipality,3,DC21,ANC,29133,476
+KZN213,Umzumbe Local Municipality,3,DC21,ANC,52356,889
+KZN214,UMuziwabantu Local Municipality,3,DC21,ANC,27800,543
+KZN215,Ezingoleni Local Municipality,3,DC21,ANC,17048,331
+KZN216,Hibiscus Coast Local Municipality,3,DC21,ANC,100487,1271
+KZN221,uMshwathi Local Municipality,3,DC22,ANC,38178,559
+KZN222,uMngeni Local Municipality,3,DC22,ANC,35404,282
+KZN223,Mooi Mpofana Local Municipality,3,DC22,ANC,11727,175
+KZN224,Impendle Local Municipality,3,DC22,ANC,11396,186
+KZN225,The Msunduzi Local Municipality,3,DC22,ANC,227432,2256
+KZN226,Mkhambathini Local Municipality,3,DC22,ANC,21755,384
+KZN227,Richmond Local Municipality,3,DC22,ANC,22754,321
+KZN232,Emnambithi/Ladysmith Local Municipality,3,DC23,ANC,76950,923
+KZN233,Indaka Local Municipality,3,DC23,IFP,29163,395
+KZN234,Umtshezi Local Municipality,3,DC23,ANC,25687,329
+KZN235,Okhahlamba Local Municipality,3,DC23,ANC,37721,759
+KZN236,Imbabazane Local Municipality,3,DC23,ANC,33441,659
+KZN241,Endumeni Local Municipality,3,DC24,ANC,18010,320
+KZN242,Nqutu Local Municipality,3,DC24,IFP,44786,813
+KZN244,Msinga Local Municipality,3,DC24,IFP,51689,773
+KZN245,Umvoti Local Municipality,3,DC24,ANC,31858,615
+KZN252,Newcastle Local Municipality,3,DC25,ANC,107270,1781
+KZN253,Utrecht Local Municipality,3,DC25,ANC,8257,238
+KZN254,Dannhauser Local Municipality,3,DC25,ANC,28734,510
+KZN261,eDumbe Local Municipality,3,DC26,IFP,22533,407
+KZN262,UPhongolo Local Municipality,3,DC26,ANC,36094,547
+KZN263,Abaqulusi Local Municipality,3,DC26,ANC,60738,805
+KZN265,Nongoma Local Municipality,3,DC26,IFP,59078,758
+KZN266,Ulundi Local Municipality,3,DC26,IFP,64276,541
+KZN271,Umhlabuyalingana Local Municipality,3,DC27,ANC,45631,983
+KZN272,Jozini Local Municipality,3,DC27,IFP,55255,751
+KZN273,The Big 5 False Bay Local Municipality,3,DC27,IFP,11373,145
+KZN274,Hlabisa Local Municipality,3,DC27,IFP,56459,815
+KZN275,Mtubatuba Local Municipality,3,DC27,ANC,16049,239
+KZN281,Mbonambi Local Municipality,3,DC28,ANC,43668,702
+KZN282,uMhlathuze Local Municipality,3,DC28,ANC,122117,1262
+KZN283,Ntambanana Local Municipality,3,DC28,IFP,23999,431
+KZN284,uMlalazi Local Municipality,3,DC28,ANC,72175,1198
+KZN285,Mthonjaneni Local Municipality,3,DC28,IFP,15933,214
+KZN286,Nkandla Local Municipality,3,DC28,ANC,35613,577
+KZN291,eNdondakusuka Local Municipality,3,DC29,ANC,47460,640
+KZN292,KwaDukuza Local Municipality,3,DC29,ANC,73219,1061
+KZN293,Ndwedwe Local Municipality,3,DC29,ANC,49996,980
+KZN294,Maphumulo Local Municipality,3,DC29,ANC,31327,499
+KZN431,Ingwe Local Municipality,3,DC43,ANC,32159,470
+KZN432,Kwa Sani Local Municipality,3,DC43,ANC,5301,94
+KZN433,Greater Kokstad Local Municipality,3,DC43,ANC,22912,437
+KZN434,Ubuhlebezwe Local Municipality,3,DC43,ANC,33545,608
+KZN435,Umzimkhulu Local Municipality,3,DC43,ANC,55099,596
+KZNDMA22,UMgungundlovu District Management Area,3,DC22,ANC,54,1
+KZNDMA23,Uthukela District Management Area,3,DC23,ANC,619,5
+KZNDMA27,Umkhanyakude District Management Area,3,DC27,ANC,1367,19
+KZNDMA43,Sisonke District Management Area,3,DC43,ANC,130,1
+LIM331,Greater Giyani Local Municipality,3,DC33,ANC,74464,999
+LIM332,Greater Letaba Local Municipality,3,DC33,ANC,67934,771
+LIM333,Greater Tzaneen Local Municipality,3,DC33,ANC,121016,1703
+LIM334,Ba-Phalaborwa Local Municipality,3,DC33,ANC,44467,606
+LIM335,Maruleng Local Municipality,3,DC33,ANC,31446,383
+LIM341,Musina Local Municipality,3,DC34,ANC,14814,214
+LIM342,Mutale Local Municipality,3,DC34,ANC,29405,311
+LIM343,Thulamela Local Municipality,3,DC34,ANC,182984,2517
+LIM344,Makhado Local Municipality,3,DC34,ANC,151759,1946
+LIM351,Blouberg Local Municipality,3,DC35,ANC,42367,611
+LIM352,Aganang Local Municipality,3,DC35,ANC,38241,626
+LIM353,Molemole Local Municipality,3,DC35,ANC,29980,388
+LIM354,Polokwane Local Municipality,3,DC35,ANC,163970,2307
+LIM355,Lepele-Nkumpi Local Municipality,3,DC35,ANC,60115,1292
+LIM361,Thabazimbi Local Municipality,3,DC36,ANC,27583,395
+LIM362,Lephalale Local Municipality,3,DC36,ANC,29808,344
+LIM364,Mookgopong Local Municipality,3,DC36,ANC,11376,149
+LIM365,Modimolle Local Municipality,3,DC36,ANC,22396,416
+LIM366,Bela-Bela Local Municipality,3,DC36,ANC,20699,554
+LIM367,Mogalakwena Local Municipality,3,DC36,ANC,87995,1203
+LIM471,Greater Marble Hall Local Municipality,3,DC47,ANC,34754,620
+LIM472,Elias Motsoaledi Local Municipality,3,DC47,ANC,70009,1263
+LIM473,Makhuduthamaga Local Municipality,3,DC47,ANC,75100,1302
+LIM474,Fetakgomo Local Municipality,3,DC47,ANC,28218,495
+LIM475,Greater Tubatse Local Municipality,3,DC47,ANC,85652,1522
+LIMDMA33,Mopani District Management Area,3,DC33,ANC,996,10
+MP301,Albert Luthuli Local Municipality,3,DC30,ANC,64537,952
+MP302,Msukaligwa Local Municipality,3,DC30,ANC,51443,813
+MP303,Mkhondo Local Municipality,3,DC30,ANC,49091,851
+MP304,Seme Local Municipality,3,DC30,ANC,26082,449
+MP305,Lekwa Local Municipality,3,DC30,ANC,39575,625
+MP306,Dipaleseng Local Municipality,3,DC30,ANC,15621,241
+MP307,Govan Mbeki Local Municipality,3,DC30,ANC,107083,1809
+MP311,Delmas Local Municipality,3,DC31,ANC,23163,377
+MP312,Emalahleni Local Municipality,3,DC31,ANC,135332,2026
+MP313,Steve Tshwete Local Municipality,3,DC31,ANC,79037,955
+MP314,Highlands Local Municipality,3,DC31,ANC,19531,269
+MP315,Thembisile Local Municipality,3,DC31,ANC,103644,2062
+MP316,Dr JS Moroka Local Municipality,3,DC31,ANC,81010,1464
+MP321,Thaba Chweu Local Municipality,3,DC32,ANC,34791,620
+MP322,Mbombela Local Municipality,3,DC32,ANC,212395,2239
+MP323,Umjindi Local Municipality,3,DC32,ANC,23468,418
+MP324,Nkomazi Local Municipality,3,DC32,ANC,117093,1431
+MP325,Bushbuckridge Local Municipality,3,DC32,ANC,157191,2951
+MPDMA32,Ehlanzeni District Management Area,3,DC32,ANC,2953,24
+NC061,Richtersveld Local Municipality,3,DC6,ANC,5076,69
+NC062,Nama Khoi Local Municipality,3,DC6,ANC,18905,170
+NC064,Kamiesberg Local Municipality,3,DC6,ANC,4695,66
+NC065,Hantam Local Municipality,3,DC6,ANC,8338,94
+NC066,Karoo Hoogland Local Municipality,3,DC6,ANC,4634,61
+NC067,Khâi-Ma Local Municipality,3,DC6,ANC,4842,36
+NC071,Ubuntu Local Municipality,3,DC7,ANC,6745,103
+NC072,Umsobomvu Local Municipality,3,DC7,ANC,10797,217
+NC073,Emthanjeni Local Municipality,3,DC7,ANC,16150,241
+NC074,Kareeberg Local Municipality,3,DC7,ANC,4823,122
+NC075,Renosterberg Local Municipality,3,DC7,ANC,4419,54
+NC076,Thembelihle Local Municipality,3,DC7,ANC,6077,64
+NC077,Siyathemba Local Municipality,3,DC7,ANC,8051,123
+NC078,Siyancuma Local Municipality,3,DC7,ANC,12657,235
+NC081,Mier Local Municipality,3,DC8,ANC,3595,39
+NC082,Kai !Garib Local Municipality,3,DC8,ANC,17726,489
+NC083,//Khara Hais Local Municipality,3,DC8,ANC,33604,376
+NC084,!Kheis Local Municipality,3,DC8,ANC,6094,63
+NC085,Tsantsabane Local Municipality,3,DC8,ANC,11116,159
+NC086,Kgatelopele Local Municipality,3,DC8,ANC,6645,102
+NC091,Sol Plaatjie Local Municipality,3,DC9,ANC,93202,1286
+NC092,Dikgatlong Local Municipality,3,DC9,ANC,15619,415
+NC093,Magareng Local Municipality,3,DC9,ANC,8708,145
+NC094,Phokwane Local Municipality,3,DC9,ANC,22124,367
+NC451,Moshaweng Local Municipality,3,DC45,ANC,29737,959
+NC452,Ga-Segonyana Local Municipality,3,DC45,ANC,30742,530
+NC453,Gamagara Local Municipality,3,DC45,ANC,12596,209
+NCDMA06,Namakwa District Management Area,3,DC6,DA,394,4
+NCDMA07,Pixley ka Seme District Management Area,3,DC7,ANC,756,12
+NCDMA08,Siyanda District Management Area,3,DC8,ANC,1753,43
+NCDMA09,Frances Baard District Management Area,3,DC9,ANC,1126,53
+NCDMA45,Kgalagadi District Management Area,3,DC45,ANC,2656,66
+NW371,Moretele Local Municipality,3,DC37,ANC,64601,1193
+NW372,Madibeng Local Municipality,3,DC37,ANC,152668,2351
+NW373,Rustenburg Local Municipality,3,DC37,ANC,172422,3302
+NW374,Kgetlengrivier Local Municipality,3,DC37,ANC,13864,295
+NW375,Moses Kotane Local Municipality,3,DC37,ANC,81920,1592
+NW381,Ratlou Local Municipality,3,DC38,ANC,30201,959
+NW382,Tswaing Local Municipality,3,DC38,ANC,33681,776
+NW383,Mafikeng Local Municipality,3,DC38,ANC,85908,1943
+NW384,Ditsobotla Local Municipality,3,DC38,ANC,49073,1040
+NW385,Ramotshere Moiloa Local Municipality,3,DC38,ANC,42269,1085
+NW391,Kagisano Local Municipality,3,DC39,ANC,28634,959
+NW392,Naledi Local Municipality,3,DC39,ANC,21079,524
+NW393,Mamusa Local Municipality,3,DC39,ANC,18024,473
+NW394,Greater Taung Local Municipality,3,DC39,ANC,57425,1646
+NW395,Molopo Local Municipality,3,DC39,ANC,2568,89
+NW396,Lekwa-Teemane Local Municipality,3,DC39,ANC,16299,349
+NW401,Ventersdorp Local Municipality,3,DC40,ANC,13861,312
+NW402,Potchefstroom Local Municipality,3,DC40,ANC,66951,886
+NW403,Matlosana Local Municipality,3,DC40,ANC,137264,2018
+NW404,Maquassi Hills Local Municipality,3,DC40,ANC,24468,474
+WC011,Matzikama Local Municipality,3,DC1,DA,16727,147
+WC012,Cederberg Local Municipality,3,DC1,DA,13678,120
+WC013,Bergrivier Local Municipality,3,DC1,DA,16590,141
+WC014,Saldanha Bay Local Municipality,3,DC1,DA,32503,377
+WC015,Swartland Local Municipality,3,DC1,DA,28302,333
+WC022,Witzenberg Local Municipality,3,DC2,ANC,25711,481
+WC023,Drakenstein Local Municipality,3,DC2,DA,84964,852
+WC024,Stellenbosch Local Municipality,3,DC2,DA,56908,741
+WC025,Breede Valley Local Municipality,3,DC2,DA,49879,500
+WC026,Breede River/Winelands Local Municipality,3,DC2,DA,25187,376
+WC031,Theewaterskloof Local Municipality,3,DC3,DA,31982,448
+WC032,Overstrand Local Municipality,3,DC3,DA,34585,313
+WC033,Cape Agulhas Local Municipality,3,DC3,DA,12449,169
+WC034,Swellendam Local Municipality,3,DC3,DA,10086,176
+WC041,Kannaland Local Municipality,3,DC4,DA,8288,76
+WC042,Hessequa Local Municipality,3,DC4,DA,19455,211
+WC043,Mossel Bay Local Municipality,3,DC4,DA,38259,468
+WC044,George Local Municipality,3,DC4,DA,62885,670
+WC045,Oudtshoorn Local Municipality,3,DC4,DA,29480,380
+WC047,Plettenberg Bay Local Municipality,3,DC4,ANC,19352,200
+WC048,Knysna Local Municipality,3,DC4,ANC,26921,280
+WC051,Laingsburg Local Municipality,3,DC5,DA,2735,38
+WC052,Prince Albert Local Municipality,3,DC5,DA,4547,47
+WC053,Beaufort West Local Municipality,3,DC5,DA,14255,197
+WCDMA01,West Coast District Management Area,3,DC1,DA,1500,9
+WCDMA02,Cape Winelands District Management Area,3,DC2,DA,1760,30
+WCDMA03,Overberg District Management Area,3,DC3,DA,36,1
+WCDMA04,Eden District Management Area,3,DC4,DA,4166,58
+WCDMA05,Central Karoo District Management Area,3,DC5,ANC,2467,32
