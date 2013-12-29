@@ -125,7 +125,7 @@ d3.select('#zoomout').on("click", function() {
     zoomOut();
 }).style("display", "none");
 
-var curCode = "RSA";
+var curCode = "";
 
 function zoomOut() {
     var prt = placeinfo[curCode].parent;
