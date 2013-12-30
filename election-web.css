@@ -1,12 +1,13 @@
 body { margin: 8px; font-family: sans-serif; }
 
-#splash { position: fixed; left: 0; right: 0; top: 0; bottom: 0; width:200px; height:200px; margin: auto;}
+/* Splashscreen */
+#splash { position: fixed; left: 0; right: 0; top: 0; bottom: 0; width:200px; height:200px; margin: auto; }
 #splash svg { width: 200px; height: 200px; }
 path#progback { stroke: none; fill: lightgray; }
 path#progbar { stroke: none; fill: lightblue; }
 #progtext { font-size: 32px; font-weight: bold; }
 
-/* Screen layout */
+/* Overall layout */
 #wrapper { position: relative; }
 @media only screen and (max-width: 429px) {
     #map { position:relative; width: 100%; height: 0; padding-bottom: 90%; }
@@ -36,15 +37,11 @@ path#progbar { stroke: none; fill: lightblue; }
 }
 #piechart, #regstuff { padding-top: 10px; }
 div.header { padding-bottom: 8px; }
-
 svg { overflow: hidden; }
-
-table.votes { margin: 0 auto; }
 
 /* Text formatting */
 div.heading { font-size: 125%; font-weight: bold; text-align: center; padding-bottom: 3px; }
 div.hint { font-size: 85%; font-style: italic; text-align: center; height: 0; }
-.regstats { font-size:85%; margin: 0 auto; }
 
 /* Map formatting */
 #resetdiv { position:absolute; right:0; bottom:0; text-align: right; }
@@ -62,8 +59,12 @@ div.hint { font-size: 85%; font-style: italic; text-align: center; height: 0; }
 #hoverobj { fill: white; stroke:none; fill-opacity: 0.5; pointer-events: none; }
 #selpath { fill: white; stroke:none; fill-opacity: 0.3; pointer-events: none; }
 
+/* Table formatting */
 .numbercell { text-align: right; }
+table.regstats { font-size:85%; margin: 0 auto; }
+table.regstats tr :first-child { padding-right: 1em; }
 
+table.votes { margin: 0 auto; }
 table.votes { padding-top:1em; font-size:85%; border-spacing: 0; }
 table.votes th { text-align: left; white-space: nowrap; }
 table.votes td, table.votes th { padding-right: 1em; border-top: 1px solid gray; padding-top: 2px; padding-bottom: 2px; height: 22px; }
@@ -87,8 +88,7 @@ table.votes tr.validrow td { font-weight: bold; }
 table.votes tr.spoiltrow td { font-style: italic; }
 table.votes tr.totalrow td { font-weight:bold; font-style: italic; }
 
-table.regstats tr :first-child { padding-right: 1em; }
-
+/* Pie chart formatting */
 .slice { stroke: white; fill: lightgray; }
 .slice.ANC { fill: #93d3bf; }
 .slice.DA { fill: #aebbd9; }
