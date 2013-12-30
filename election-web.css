@@ -42,6 +42,8 @@ path#progbar { stroke: none; fill: lightblue; }
 #piechart, #regstuff { padding-top: 10px; }
 div.header { padding-bottom: 8px; }
 
+svg { overflow: hidden; }
+
 table.votes { margin: 0 auto; }
 
 /* Text formatting */
