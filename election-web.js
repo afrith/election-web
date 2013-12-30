@@ -155,16 +155,25 @@ queue()
 
     d3.select("#wrapper").style("display", "block");
     
-    if (window.location.hash !== "") {
-        var h = window.location.hash.substring(1);
-        if (placeinfo[h]) {
-            goToArea(h);
-            return;
-        }
+    var h = window.location.hash.substring(1);
+    if (placeinfo[h]) {
+        goToArea(h);
+    } else {
+        goToArea("RSA");
     }
-    goToArea("RSA")
+
+    d3.select(window).on("hashchange", hashchanged);
 
 });
+
+function hashchanged() {
+    var h = window.location.hash.substring(1);
+    if (placeinfo[h]) {
+        goToArea(h);
+    } else if (h == "") {
+        goToArea("RSA");
+    }
+}
 
 d3.select('#zoomout').on("click", function() {
     d3.event.preventDefault();
