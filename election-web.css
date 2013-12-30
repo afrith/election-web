@@ -86,3 +86,5 @@ table.votes tr.totalrow td { font-weight:bold; font-style: italic; }
 .slice.DA { fill: #aebbd9; }
 .slice.IFP { fill: #fcae90; }
 .slice.COPE { fill: #fee36c; }
+
+.pielabel { fill: black; stroke: none; }

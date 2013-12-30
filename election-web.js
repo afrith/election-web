@@ -17,6 +17,7 @@ var path = d3.geo.path().projection(projection);
 
 var intfmt = d3.format(",d");
 var percfmt = d3.format("0.1%");
+var percintfmt = d3.format("0.0%");
 
 /*svg.append("rect").attr("class", "background")
     .attr("width", width).attr("height", height)
@@ -35,8 +36,11 @@ var placeinfo, parties, votes;
 var vtbody = d3.select("table.votes tbody");
 
 var piesvg = d3.select("div#piechart").select("svg")
-    .attr("viewBox", "0 0 " + piewidth + " " + pieheight)
-    .append("g").attr("transform", "translate(" + piewidth / 2 + "," + pieheight / 2 + ")");
+    .attr("viewBox", "0 0 " + piewidth + " " + pieheight);
+var pieg = piesvg.select("g#chart").attr("transform", "translate(" + piewidth / 2 + "," + pieheight / 2 + ")");
+var sliceg = pieg.select("g#slices");
+var labelg = pieg.select("g#labels");
+
 var radius = Math.min(piewidth, pieheight)/2;
 var arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(0);
 var pie = d3.layout.pie().value(function (d) { return d.votes; });
@@ -265,13 +269,35 @@ function goToArea(code) {
 
     // Update pie
 
-    var slices = piesvg.selectAll(".slice")
+    var slices = sliceg.selectAll(".slice")
         .data(pie(votes[code]), function(d) { return d.data.party; });
-    slices.enter().append("g")
-        .attr("class", function(d) { return "slice " + d.data.party; })
-        .append("path");
+    slices.enter().append("path")
+        .attr("class", function(d) { return "slice " + d.data.party; });
+    slices.attr("d", arc);
 
-    slices.select("path").attr("d", arc);
+    var labels = labelg.selectAll(".pielabel")
+        .data(pie(votes[code]), function(d) { return d.data.party; });
+    var t = labels.enter().append("text")
+        .attr("class", function(d) { return "pielabel " + d.data.party; })
+        .style("text-anchor", "middle");
+    t.append("tspan").attr("class", "partylabel");
+    t.append("tspan").attr("class", "perclabel");
+
+    labels
+        .attr("transform", function(d) {
+            var c = arc.centroid(d);
+            return "translate(" + c[0]*1.5 + "," + c[1]*1.5 + ")";
+        })
+        .style("display", function(d) {
+            return ((d.data.votes / valid) >= 0.05) ? "block" : "none";
+        });
+    labels.select(".partylabel").text(function(d) {
+        return d.data.party;
+    });
+    labels.select(".perclabel").attr("x", "0").attr("dy", "1em")
+    .text(function(d) {
+        return percintfmt(d.data.votes/valid);
+    });
 };
 
 function showProv(scale, sw) {
