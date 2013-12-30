@@ -236,6 +236,7 @@ function hashchanged() {
 
 function updateAll(ballot, code, firsttime) {
     if (ballot != curBallot) {
+        d3.select("#electype").text((ballot == "N") ? "national" : "provincial");
         provarea.attr("class", function(d) {
             return "province " + d.id + " winner-" + placeballot[d.id][ballot].winner;
         });
