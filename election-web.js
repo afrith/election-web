@@ -107,8 +107,6 @@ queue()
         .key(function (d) { return d.area; })
         .map(votecsv);
 
-    d3.select("#splash").remove();
-
     var areag = mapg.select("g#areas");
 
     natarea = areag.selectAll(".nation")
@@ -189,6 +187,7 @@ queue()
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel);
 
+    d3.select("#splash").remove();
     d3.select("#wrapper").style("display", "block");
     
     var h = window.location.hash.substring(1);
