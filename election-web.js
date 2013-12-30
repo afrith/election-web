@@ -22,12 +22,6 @@ var intfmt = d3.format(",d");
 var percfmt = d3.format("0.1%");
 var percintfmt = d3.format("0.0%");
 
-/*svg.append("rect").attr("class", "background")
-    .attr("width", width).attr("height", height)
-    .on("click", function() { goToArea("RSA"); })
-    .on("mousewheel", mousewheel)
-    .on("DOMMouseScroll", mousewheel);*/
-
 var svg = d3.select("div#map").select("svg");
 svg.attr("viewBox", "0 0 " + width + " " + height);
 var mapg = svg.select("g#map");
@@ -137,12 +131,7 @@ queue()
     natarea
         .enter().append("path")
         .attr("class", "nation RSA")
-        .attr("d", path)
-        /*.on("click", clicked)
-        .on("mousewheel", mousewheel)
-        .on("DOMMouseScroll", mousewheel)
-        .on("mousemove", hovered)
-        .on("mouseout", unhovered)*/;
+        .attr("d", path);
 
     provarea = areag.selectAll(".province")
         .data(topojson.feature(topos, topos.objects.provinces).features);
