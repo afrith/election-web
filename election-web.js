@@ -279,15 +279,27 @@ function goToArea(code) {
     d3.select(".turnout").text(percfmt((valid + spoilt)/regd));
 
     // Update pie
+    var datafilt = votes[code].filter(function(d) { return d.votes > 0; });
 
     var slices = sliceg.selectAll(".slice")
-        .data(pie(votes[code]), function(d) { return d.data.party; });
+        .data(pie(datafilt), function(d) { return d.data.party; });
     slices.enter().append("path")
-        .attr("class", function(d) { return "slice " + d.data.party; });
-    slices.attr("d", arc);
+        .attr("class", function(d) { return "slice " + d.data.party; })
+        .each(function(d) {
+            this._curang = {data: d.data, value: 1, startAngle: 1, endAngle: 1};
+        });
+    slices
+        .transition().duration(transDuration)
+        .attrTween("d", function(a) {
+            var i = d3.interpolate(this._curang, a);
+            this._curang = i(0);
+            return function(t) {
+                return arc(i(t));
+            };
+        });
 
     var labels = labelg.selectAll(".pielabel")
-        .data(pie(votes[code]), function(d) { return d.data.party; });
+        .data(pie(datafilt), function(d) { return d.data.party; });
     var t = labels.enter().append("text")
         .attr("class", function(d) { return "pielabel " + d.data.party; })
         .style("text-anchor", "middle");
@@ -295,20 +307,27 @@ function goToArea(code) {
     t.append("tspan").attr("class", "perclabel");
 
     labels
+        .style("display", function(d) {
+            return ((d.data.votes / valid) >= 0.05) ? "block" : "none";
+        })
+        .transition().duration(transDuration)
         .attr("transform", function(d) {
             var c = arc.centroid(d);
             return "translate(" + c[0]*1.5 + "," + c[1]*1.5 + ")";
-        })
-        .style("display", function(d) {
-            return ((d.data.votes / valid) >= 0.05) ? "block" : "none";
         });
     labels.select(".partylabel").text(function(d) {
         return d.data.party;
     });
     labels.select(".perclabel").attr("x", "0").attr("dy", "1em")
-    .text(function(d) {
-        return percintfmt(d.data.votes/valid);
-    });
+    .transition().duration(transDuration)
+        .tween("text", function(d) {
+            var i = d3.interpolateNumber(
+                (this.textContent == "") ? 0 : parseInt(this.textContent)/100,
+                d.data.votes/valid);
+            return function(t) {
+                this.textContent = percintfmt(i(t));
+            };
+        });
 
     //Update URL hash
     window.location.hash = (l == 0) ? "" : ("#" + code);
