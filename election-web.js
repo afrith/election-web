@@ -340,7 +340,7 @@ function goToArea(code) {
         });
 
     //Update URL hash
-    window.location.hash = (l == 0) ? "" : ("#" + code);
+    window.location.hash = "#" + code;
 };
 
 function showProv(scale, sw) {
