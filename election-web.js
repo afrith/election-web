@@ -215,12 +215,10 @@ queue()
 
     var h = window.location.hash.substring(1);
 
-    changeBallot("N");
-
-    if (placeinfo[h] && h !== 'RSA') {
-        goToArea(h);
+    if (placeinfo[h] && h != 'RSA') {
+        updateAll("N", h);
     } else {
-        goToArea("RSA", true);
+        updateAll("N", "RSA", true);
     }
 
     d3.select(window).on("hashchange", hashchanged);
@@ -230,29 +228,179 @@ queue()
 function hashchanged() {
     var h = window.location.hash.substring(1);
     if (placeinfo[h]) {
-        goToArea(h);
+        updateAll(curBallot, h);
     } else if (h == "") {
-        goToArea("RSA");
+        updateAll(curBallot, "RSA");
     }
 }
 
-function changeBallot(b) {
-    if (curBallot == b) {
-        return;
+function updateAll(ballot, code, firsttime) {
+    if (ballot != curBallot) {
+        provarea.attr("class", function(d) {
+            return "province " + d.id + " winner-" + placeballot[d.id][ballot].winner;
+        });
+
+        distarea.attr("class", function(d) {
+            return "district " + d.id + " winner-" + placeballot[d.id][ballot].winner;
+        });
+
+        muniarea.attr("class", function(d) {
+            return "muni " + d.id + " winner-" + placeballot[d.id][ballot].winner;
+        });
     }
 
-    curBallot = b;
-    provarea.attr("class", function(d) {
-        return "province " + d.id + " winner-" + placeballot[d.id][curBallot].winner;
-    });
+    if (code != curCode) {
 
-    distarea.attr("class", function(d) {
-        return "district " + d.id + " winner-" + placeballot[d.id][curBallot].winner;
-    });
+        d3.select('#placename').text(placeinfo[code].name);
+        d3.select('title').text("2009 National Assembly election — " + placeinfo[code].name);
 
-    muniarea.attr("class", function(d) {
-        return "muni " + d.id + " winner-" + placeballot[d.id][curBallot].winner;
-    });
+        var d = d3.select('.' + code).datum();
+        var l = placeinfo[code].layer;
+
+        unhovered();
+        d3.select('#selpath').remove();
+        selph.append("path")
+            .datum(d)
+            .attr("d", path)
+            .attr("id", "selpath");
+
+        if (l == 0) {
+            mapg.transition().duration(transDuration).attr("transform", "");
+            d3.select("#zoomout").style("display", "none");
+        } else {
+            var bds = path.bounds(d);
+            var w = bds[0][0];
+            var n = bds[0][1];
+            var e = bds[1][0];
+            var s = bds[1][1];
+            var wd = e - w;
+            var ht = s - n;
+            var x = (w + e)/2;
+            var y = (n + s)/2;
+            var k = Math.min(width/wd, height/ht)*0.9;
+
+            mapg.transition().duration(transDuration)
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
+            d3.select("#zoomout").style("display", "inline");
+        }
+
+        if (l == 0) {
+            showProv(1, 3);
+            hideDist();
+            hideMuni();
+        } else if (l == 1) {
+            showProv(k, 4);
+            showDist(k, 2, code);
+            hideMuni();
+        } else if (l == 2) {
+            showProv(k, 6);
+            showDist(k, 4, placeinfo[code].parent);
+            showMuni(k, 2, code);
+        } else if (l == 3) {
+            showProv(k, 6);
+            showDist(k, 4, placeinfo[placeinfo[code].parent].parent);
+            showMuni(k, 2, placeinfo[code].parent);
+        }
+    }
+
+    if ((ballot != curBallot) || (code != curCode)) {
+        if (!firsttime) {
+            d3.select(".hint").remove();
+        }
+
+        // Update table
+        var valid = placeballot[code][ballot].valid;
+        var spoilt = placeballot[code][ballot].spoilt;
+        var regd = placeinfo[code].regd;
+
+        vtbl.style("opacity", 0);
+        rtbl.style("opacity", 0);
+
+        var tabsel = vtbody.selectAll("tr")
+            .data(votes[code][ballot], function(d) { return d.party; });
+
+        var newtr = tabsel.enter()
+            .append("tr")
+            .attr("class", function(d) { return "row-" + d.party; });
+        newtr.append("td").attr("class", "partylogo")
+            .append("img").attr("src", function(d) { return "images/" + d.party + ".png"; });
+        newtr.append("td").text(function (d) { return parties[d.party].name; });
+        newtr.append("td").attr("class", "numbercell votenum");
+        newtr.append("td").attr("class", "numbercell voteperc");
+
+        tabsel.exit().remove();
+
+        tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
+        tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
+        tabsel.select(".voteperc").text(function (d) { return percfmt(d.votes/valid); });
+
+
+        d3.select(".validnum").text(intfmt(valid));
+        d3.select(".spoiltnum").text(intfmt(spoilt));
+        d3.selectAll(".totalnum").text(intfmt(valid + spoilt));
+        d3.select(".regdnum").text(intfmt(regd));
+        d3.select(".turnout").text(percfmt((valid + spoilt)/regd));
+
+        vtbl.transition().duration(transDuration).style("opacity", 1);
+        rtbl.transition().duration(transDuration).style("opacity", 1);
+
+        // Update pie
+        var datafilt = votes[code][ballot].filter(function(d) { return d.votes > 0; });
+
+        var slices = sliceg.selectAll(".slice")
+            .data(pie(datafilt), function(d) { return d.data.party; });
+        slices.enter().append("path")
+            .attr("class", function(d) { return "slice " + d.data.party; })
+            .each(function(d) {
+                this._curang = {data: d.data, value: 1, startAngle: 1, endAngle: 1};
+            });
+        slices
+            .transition().duration(transDuration)
+            .attrTween("d", function(a) {
+                var i = d3.interpolate(this._curang, a);
+                this._curang = i(0);
+                return function(t) {
+                    return arc(i(t));
+                };
+            });
+
+        var labels = labelg.selectAll(".pielabel")
+            .data(pie(datafilt), function(d) { return d.data.party; });
+        var t = labels.enter().append("text")
+            .attr("class", function(d) { return "pielabel " + d.data.party; })
+            .style("text-anchor", "middle");
+        t.append("tspan").attr("class", "partylabel");
+        t.append("tspan").attr("class", "perclabel");
+
+        labels
+            .style("display", function(d) {
+                return ((d.data.votes / valid) >= 0.05) ? "block" : "none";
+            })
+            .transition().duration(transDuration)
+            .attr("transform", function(d) {
+                var c = arc.centroid(d);
+                return "translate(" + c[0]*1.5 + "," + c[1]*1.5 + ")";
+            });
+        labels.select(".partylabel").text(function(d) {
+            return d.data.party;
+        });
+        labels.select(".perclabel").attr("x", "0").attr("dy", "1em")
+        .transition().duration(transDuration)
+            .tween("text", function(d) {
+                var i = d3.interpolateNumber(
+                    (this.textContent == "") ? 0 : parseInt(this.textContent)/100,
+                    d.data.votes/valid);
+                return function(t) {
+                    this.textContent = percintfmt(i(t));
+                };
+            });
+
+        //Update URL hash
+        window.location.hash = "#" + code;
+    }
+
+    curBallot = ballot;
+    curCode = code;
 }
 
 d3.select('#zoomout').on("click", function() {
@@ -263,7 +411,7 @@ d3.select('#zoomout').on("click", function() {
 function zoomOut() {
     var prt = placeinfo[curCode].parent;
     if (prt) {
-        goToArea(prt);
+        updateAll(curBallot, prt);
     }
 }
 
@@ -271,7 +419,7 @@ function mousewheel(d) {
     if (d) {
         d3.event.preventDefault();
         if (d3.event.wheelDelta > 0 || d3.event.detail < 0) {
-            if (d.type == "Feature") { goToArea(d.id) };
+            if (d.type == "Feature") { updateAll(curBallot, d.id) };
         } else {
             if (curCode !== "RSA") {
                 zoomOut();
@@ -281,71 +429,8 @@ function mousewheel(d) {
 }
 
 function clicked(d) {
-    goToArea(d.id);
+    updateAll(curBallot, d.id);
 }
-
-function goToArea(code, firsttime) {
-    if (code == curCode) {
-        return;
-    }
-    curCode = code;
-
-    d3.select('#placename').text(placeinfo[code].name);
-    d3.select('title').text("2009 National Assembly election — " + placeinfo[code].name);
-    if (!firsttime) {
-        d3.select(".hint").remove();
-    }
-
-    var d = d3.select('.' + code).datum();
-    var l = placeinfo[code].layer;
-
-    unhovered();
-    d3.select('#selpath').remove();
-    selph.append("path")
-        .datum(d)
-        .attr("d", path)
-        .attr("id", "selpath");
-
-    if (l == 0) {
-        mapg.transition().duration(transDuration).attr("transform", "");
-        d3.select("#zoomout").style("display", "none");
-    } else {
-        var bds = path.bounds(d);
-        var w = bds[0][0];
-        var n = bds[0][1];
-        var e = bds[1][0];
-        var s = bds[1][1];
-        var wd = e - w;
-        var ht = s - n;
-        var x = (w + e)/2;
-        var y = (n + s)/2;
-        var k = Math.min(width/wd, height/ht)*0.9;
-
-        mapg.transition().duration(transDuration)
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
-        d3.select("#zoomout").style("display", "inline");
-    }
-
-    if (l == 0) {
-        showProv(1, 3);
-        hideDist();
-        hideMuni();
-    } else if (l == 1) {
-        showProv(k, 4);
-        showDist(k, 2, code);
-        hideMuni();
-    } else if (l == 2) {
-        showProv(k, 6);
-        showDist(k, 4, placeinfo[code].parent);
-        showMuni(k, 2, code);
-    } else if (l == 3) {
-        showProv(k, 6);
-        showDist(k, 4, placeinfo[placeinfo[code].parent].parent);
-        showMuni(k, 2, placeinfo[code].parent);
-    }
-
-    updateTables();
-};
 
 function showProv(scale, sw) {
     provstroke.transition().duration(transDuration).style("stroke-width", (sw/scale) + "px");
@@ -389,98 +474,6 @@ function hideMuni() {
     muniarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
     munistroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
 
-}
-
-function updateTables() {
-    // Update table
-    var valid = placeballot[curCode][curBallot].valid;
-    var spoilt = placeballot[curCode][curBallot].spoilt;
-    var regd = placeinfo[curCode].regd;
-
-    vtbl.style("opacity", 0);
-    rtbl.style("opacity", 0);
-
-    var tabsel = vtbody.selectAll("tr")
-        .data(votes[curCode][curBallot], function(d) { return d.party; });
-
-    var newtr = tabsel.enter()
-        .append("tr")
-        .attr("class", function(d) { return "row-" + d.party; });
-    newtr.append("td").attr("class", "partylogo")
-        .append("img").attr("src", function(d) { return "images/" + d.party + ".png"; });
-    newtr.append("td").text(function (d) { return parties[d.party].name; });
-    newtr.append("td").attr("class", "numbercell votenum");
-    newtr.append("td").attr("class", "numbercell voteperc");
-
-    tabsel.exit().remove();
-
-    tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
-    tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
-    tabsel.select(".voteperc").text(function (d) { return percfmt(d.votes/valid); });
-
-
-    d3.select(".validnum").text(intfmt(valid));
-    d3.select(".spoiltnum").text(intfmt(spoilt));
-    d3.selectAll(".totalnum").text(intfmt(valid + spoilt));
-    d3.select(".regdnum").text(intfmt(regd));
-    d3.select(".turnout").text(percfmt((valid + spoilt)/regd));
-
-    vtbl.transition().duration(transDuration).style("opacity", 1);
-    rtbl.transition().duration(transDuration).style("opacity", 1);
-
-    // Update pie
-    var datafilt = votes[curCode][curBallot].filter(function(d) { return d.votes > 0; });
-
-    var slices = sliceg.selectAll(".slice")
-        .data(pie(datafilt), function(d) { return d.data.party; });
-    slices.enter().append("path")
-        .attr("class", function(d) { return "slice " + d.data.party; })
-        .each(function(d) {
-            this._curang = {data: d.data, value: 1, startAngle: 1, endAngle: 1};
-        });
-    slices
-        .transition().duration(transDuration)
-        .attrTween("d", function(a) {
-            var i = d3.interpolate(this._curang, a);
-            this._curang = i(0);
-            return function(t) {
-                return arc(i(t));
-            };
-        });
-
-    var labels = labelg.selectAll(".pielabel")
-        .data(pie(datafilt), function(d) { return d.data.party; });
-    var t = labels.enter().append("text")
-        .attr("class", function(d) { return "pielabel " + d.data.party; })
-        .style("text-anchor", "middle");
-    t.append("tspan").attr("class", "partylabel");
-    t.append("tspan").attr("class", "perclabel");
-
-    labels
-        .style("display", function(d) {
-            return ((d.data.votes / valid) >= 0.05) ? "block" : "none";
-        })
-        .transition().duration(transDuration)
-        .attr("transform", function(d) {
-            var c = arc.centroid(d);
-            return "translate(" + c[0]*1.5 + "," + c[1]*1.5 + ")";
-        });
-    labels.select(".partylabel").text(function(d) {
-        return d.data.party;
-    });
-    labels.select(".perclabel").attr("x", "0").attr("dy", "1em")
-    .transition().duration(transDuration)
-        .tween("text", function(d) {
-            var i = d3.interpolateNumber(
-                (this.textContent == "") ? 0 : parseInt(this.textContent)/100,
-                d.data.votes/valid);
-            return function(t) {
-                this.textContent = percintfmt(i(t));
-            };
-        });
-
-    //Update URL hash
-    window.location.hash = "#" + curCode;
 }
 
 var hovering = false;
