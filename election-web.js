@@ -50,7 +50,7 @@ var pie = d3.layout.pie().value(function (d) { return d.votes; });
 
 var progarc = d3.svg.arc().outerRadius(95).innerRadius(50).startAngle(0);
 var progsvg = d3.select("div#splash").select("svg");
-var progmax = 349773;
+var progmax = 451153;
 
 var progcnt = { };
 var progtot = 0;
@@ -95,7 +95,7 @@ var jobd = d3.csv("parties.csv")
 
 var jobe = d3.csv("votes.csv")
     .row(function(d) {
-        return { area: d.area, party: d.party, votes: +d.votes };    
+        return { code: d.code, ballot: d.ballot, party: d.party, votes: +d.votes };    
     })
     .on("progress", function(d) {
         updateprog('v', d3.event.loaded);
@@ -126,7 +126,8 @@ queue()
         .map(partycsv);
 
     votes = d3.nest()
-        .key(function (d) { return d.area; })
+        .key(function (d) { return d.code; })
+        .key(function (d) { return d.ballot; })
         .map(votecsv);
 
     var areag = mapg.select("g#areas");
@@ -400,7 +401,7 @@ function updateTables() {
     rtbl.style("opacity", 0);
 
     var tabsel = vtbody.selectAll("tr")
-        .data(votes[curCode], function(d) { return d.party; });
+        .data(votes[curCode][curBallot], function(d) { return d.party; });
 
     var newtr = tabsel.enter()
         .append("tr")
@@ -428,7 +429,7 @@ function updateTables() {
     rtbl.transition().duration(transDuration).style("opacity", 1);
 
     // Update pie
-    var datafilt = votes[curCode].filter(function(d) { return d.votes > 0; });
+    var datafilt = votes[curCode][curBallot].filter(function(d) { return d.votes > 0; });
 
     var slices = sliceg.selectAll(".slice")
         .data(pie(datafilt), function(d) { return d.data.party; });
