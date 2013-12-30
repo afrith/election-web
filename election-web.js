@@ -346,14 +346,14 @@ function showMuni(scale, sw, pcode) {
 }
 
 function hideDist() {
+    distarea.style("pointer-events", "none");
     distarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
-    //distarea.style("display", "none");
     diststroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
 }
 
 function hideMuni() {
+    muniarea.style("pointer-events", "none");
     muniarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
-    //muniarea.style("display", "none");
     munistroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
 
 }
