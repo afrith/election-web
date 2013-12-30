@@ -17,7 +17,6 @@ path#progbar { stroke: none; fill: lightblue; }
     #map { position:relative; width: 400px; height: 360px; margin:0 auto; }
     #piechart { position: relative; width: 300px; height: 300px; margin:0 auto; }
 }
-
 @media only screen and (min-width: 775px)
 {
     #content { position: relative; }
@@ -27,7 +26,6 @@ path#progbar { stroke: none; fill: lightblue; }
     #regstuff { position:relative; width: 400px; }
     #legend { position:absolute; left: 410px; top: 0; }
 }
-
 @media only screen and (min-width: 775px) and (max-width: 899px)
 {
     #wrapper { width: 100% }
@@ -36,7 +34,7 @@ path#progbar { stroke: none; fill: lightblue; }
 {
     #wrapper { width:870px; margin:0 auto; }
 }
-#piechart, #regstuff { padding-top: 10px; }
+#piechart, #regstuff, #midlink { padding-top: 10px; }
 div.header { padding-bottom: 1em; }
 svg { overflow: hidden; }
 
