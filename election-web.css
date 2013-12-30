@@ -16,12 +16,6 @@ path#progbar { stroke: none; fill: lightblue; }
     #map { position:relative; width: 400px; height: 360px; margin:0 auto; }
     #piechart { position: relative; width: 300px; height: 300px; margin:0 auto; }
 }
-/*@media only screen and (max-width: 329px) {
-    #piechart { position:relative; width: 100%; height: 0; padding-bottom: 100%; }
-}
-@media only screen and (min-width: 330px) and (max-width: 879px) {
-    #piechart { position: relative; width: 300px; height: 300px; margin:0 auto; }
-}*/
 @media only screen and (min-width: 775px) and (max-width: 899px)
 {
     #wrapper { width: 100% }
