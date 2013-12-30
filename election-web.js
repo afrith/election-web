@@ -6,6 +6,9 @@ var pieheight = 300;
 
 var transDuration = 500;
 
+var curCode = "";
+var curBallot = "";
+
 var projection = d3.geo.conicEqualArea()
     .center([0, -28.5])
     .rotate([-24.5, 0])
@@ -31,8 +34,6 @@ var mapg = svg.select("g#map");
 var selph = mapg.select("g#selph");
 var hoverph = mapg.select("g#hoverph");
 
-var placeinfo, parties, votes;
-
 var vtbl = d3.select("table.votes");
 var vtbody = vtbl.select("tbody");
 var rtbl = d3.select("table.regstats");
@@ -49,41 +50,55 @@ var pie = d3.layout.pie().value(function (d) { return d.votes; });
 
 var progarc = d3.svg.arc().outerRadius(95).innerRadius(50).startAngle(0);
 var progsvg = d3.select("div#splash").select("svg");
-var progtotal = 340259;
+var progmax = 349773;
 
-var progcnt = { a: 0, b: 0, c: 0, d: 0 };
+var progcnt = { };
+var progtot = 0;
 function updateprog(c, l) {
+    if (progcnt[c]) {
+        progtot -= progcnt[c];
+    }
     progcnt[c] = l;
-    var progress = (progcnt.a + progcnt.b + progcnt.c + progcnt.d)/progtotal;
+    progtot += l;
+    var progress = progtot/progmax;
     progsvg.select("#progbar").attr("d", progarc.endAngle(progress * 2 * Math.PI));
     progsvg.select("#progtext").text(percintfmt(progress));
 }
 
 var joba = d3.json("topos.json")
     .on("progress", function(d) {
-        updateprog('a', d3.event.loaded);
+        updateprog('t', d3.event.loaded);
     });
 
 var jobb = d3.csv("placeinfo.csv")
     .row(function(d) {
-        return { code: d.code, name: d.name, layer: +d.layer, parent: d.parent,
-                winner : d.winner, valid: +d.valid, spoilt: +d.spoilt, regd: +d.regd };
+        return { code: d.code, name: d.name, layer: +d.layer,
+                    parent: d.parent, regd: +d.regd };
     })
     .on("progress", function(d) {
-        updateprog('b', d3.event.loaded);
+        updateprog('pi', d3.event.loaded);
     });
 
-var jobc = d3.csv("parties.csv")
+var jobc = d3.csv("placeballot.csv")
+    .row(function(d) {
+        return { code: d.code, ballot:d.ballot, winner : d.winner,
+                    valid: +d.valid, spoilt: +d.spoilt };
+    })
     .on("progress", function(d) {
-        updateprog('c', d3.event.loaded);
+        updateprog('pb', d3.event.loaded);
     });
 
-var jobd = d3.csv("votes.csv")
+var jobd = d3.csv("parties.csv")
+    .on("progress", function(d) {
+        updateprog('pt', d3.event.loaded);
+    });
+
+var jobe = d3.csv("votes.csv")
     .row(function(d) {
         return { area: d.area, party: d.party, votes: +d.votes };    
     })
     .on("progress", function(d) {
-        updateprog('d', d3.event.loaded);
+        updateprog('v', d3.event.loaded);
     });
 
 queue()
@@ -91,12 +106,19 @@ queue()
     .defer(jobb.get)
     .defer(jobc.get)
     .defer(jobd.get)
-    .await(function (error, topos, placecsv, partycsv, votecsv) {
+    .defer(jobe.get)
+    .await(function (error, topos, placecsv, pbcsv, partycsv, votecsv) {
 
     placeinfo = d3.nest()
         .key(function (d) { return d.code; })
         .rollup(function (d) { return d[0]; })
         .map(placecsv);
+
+    placeballot = d3.nest()
+        .key(function (d) { return d.code; })
+        .key(function (d) { return d.ballot; })
+        .rollup(function (d) { return d[0]; })
+        .map(pbcsv);
 
     parties = d3.nest()
         .key(function (d) { return d.abbrev; })
@@ -113,7 +135,7 @@ queue()
         .data(topojson.feature(topos, topos.objects.nation).features);
     natarea
         .enter().append("path")
-        .attr("class", function(d) { return "nation " + d.id + " winner-" + placeinfo[d.id].winner; })
+        .attr("class", "nation")
         .attr("d", path)
         /*.on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -125,7 +147,7 @@ queue()
         .data(topojson.feature(topos, topos.objects.provinces).features);
     provarea
         .enter().append("path")
-        .attr("class", function(d) { return "province " + d.id + " winner-" + placeinfo[d.id].winner; })
+        .attr("class", function(d) { return "province " + d.id; })
         .attr("d", path)
         .on("click", clicked)
         .on("mousewheel", mousewheel)
@@ -137,7 +159,7 @@ queue()
         .data(topojson.feature(topos, topos.objects.districts).features);
     distarea
         .enter().append("path")
-        .attr("class", function(d) { return "district " + d.id + " winner-" + placeinfo[d.id].winner; })
+        .attr("class", function(d) { return "district " + d.id; })
         .attr("d", path)
         .style("opacity", 0)
         .style("display", "none")
@@ -151,7 +173,7 @@ queue()
         .data(topojson.feature(topos, topos.objects.munis).features);
     muniarea
         .enter().append("path")
-        .attr("class", function(d) { return "muni " + d.id + " winner-" + placeinfo[d.id].winner; })
+        .attr("class", function(d) { return "muni " + d.id; })
         .attr("d", path)
         .style("opacity", 0)
         .style("display", "none")
@@ -191,6 +213,9 @@ queue()
     d3.select("#wrapper").style("display", "block");
     
     var h = window.location.hash.substring(1);
+
+    changeBallot("N");
+
     if (placeinfo[h] && h !== 'RSA') {
         goToArea(h);
     } else {
@@ -210,12 +235,29 @@ function hashchanged() {
     }
 }
 
+function changeBallot(b) {
+    if (curBallot == b) {
+        return;
+    }
+
+    curBallot = b;
+    provarea.attr("class", function(d) {
+        return "province " + d.id + " winner-" + placeballot[d.id][curBallot].winner;
+    });
+
+    distarea.attr("class", function(d) {
+        return "district " + d.id + " winner-" + placeballot[d.id][curBallot].winner;
+    });
+
+    muniarea.attr("class", function(d) {
+        return "muni " + d.id + " winner-" + placeballot[d.id][curBallot].winner;
+    });
+}
+
 d3.select('#zoomout').on("click", function() {
     d3.event.preventDefault();
     zoomOut();
 }).style("display", "none");
-
-var curCode = "";
 
 function zoomOut() {
     var prt = placeinfo[curCode].parent;
@@ -301,9 +343,9 @@ function goToArea(code, firsttime) {
     }
 
     // Update table
-    var valid = placeinfo[code].valid;
-    var spoilt = placeinfo[code].spoilt;
-    var regd = placeinfo[code].regd;
+    var valid = placeballot[code][curBallot].valid;
+    var spoilt = placeballot[code][curBallot].spoilt;
+    var regd = placeballot[code][curBallot].regd;
 
     vtbl.style("opacity", 0);
     rtbl.style("opacity", 0);
