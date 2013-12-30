@@ -49,7 +49,7 @@ queue()
     .defer(d3.json, "topos.json")
     .defer(d3.csv, "placeinfo.csv", function(d) {
         return { code: d.code, name: d.name, layer: +d.layer, parent: d.parent,
-                winner : d.winner, valid: +d.valid, spoilt: +d.spoilt };
+                winner : d.winner, valid: +d.valid, spoilt: +d.spoilt, regd: +d.regd };
     })
     .defer(d3.csv, "parties.csv")
     .defer(d3.csv, "votes.csv", function(d) {
@@ -253,6 +253,7 @@ function goToArea(code) {
     // Update table
     var valid = placeinfo[code].valid;
     var spoilt = placeinfo[code].spoilt;
+    var regd = placeinfo[code].regd;
 
     var tabsel = vtbody.selectAll("tr")
         .data(votes[code], function(d) { return d.party; });
@@ -273,7 +274,9 @@ function goToArea(code) {
 
     d3.select(".validnum").text(intfmt(valid));
     d3.select(".spoiltnum").text(intfmt(spoilt));
-    d3.select(".totalnum").text(intfmt(valid + spoilt));
+    d3.selectAll(".totalnum").text(intfmt(valid + spoilt));
+    d3.select(".regdnum").text(intfmt(regd));
+    d3.select(".turnout").text(percfmt((valid + spoilt)/regd));
 
     // Update pie
 

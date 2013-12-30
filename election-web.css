@@ -22,6 +22,7 @@ body { margin: 8px; font-family: sans-serif; }
     #content { position: relative; }
     #map { position:relative; width: 400px; height: 360px; }
     #piechart { position: relative; width: 300px; height: 300px; left:50px;}
+    #regstuff { position:relative; width: 400px; }
     #legend { position:absolute; left: 410px; top: 0; }
 }
 @media only screen and (min-width: 900px)
@@ -30,15 +31,17 @@ body { margin: 8px; font-family: sans-serif; }
     #content { position: relative; }
     #map { position:relative; width: 400px; height: 360px; }
     #piechart { position: relative; width: 300px; height: 300px; left:50px;}
+    #regstuff { position:relative; width: 400px; }
     #legend { position:absolute; left: 410px; top: 0; }
 }
-#piechart { padding-top: 10px; }
-.header { margin-bottom: 10px; }
+#piechart, #regstuff { padding-top: 10px; }
+.header { padding-bottom: 10px; }
 
 table.votes { margin: 0 auto; }
 
 /* Text formatting */
 div.header { font-size: 125%; font-weight: bold; text-align: center; }
+.regstats { font-size:85%; margin: 0 auto; }
 
 /* Map formatting */
 #resetdiv { position:absolute; right:0; bottom:0; text-align: right; }
@@ -56,6 +59,8 @@ div.header { font-size: 125%; font-weight: bold; text-align: center; }
 #hoverobj { fill: white; stroke:none; fill-opacity: 0.5; pointer-events: none; }
 #selpath { fill: white; stroke:none; fill-opacity: 0.3; pointer-events: none; }
 
+.numbercell { text-align: right; }
+
 table.votes { padding-top:1em; font-size:85%; border-spacing: 0; }
 table.votes th { text-align: left; white-space: nowrap; }
 table.votes td, table.votes th { padding-right: 1em; border-top: 1px solid gray; padding-top: 2px; padding-bottom: 2px; height: 22px; }
@@ -64,8 +69,6 @@ table.votes tr :last-child { padding-right: 2px; }
 
 table.votes thead th { border-top: none; }
 table.votes tfoot tr:first-child td, table.votes tbody tr:first-child td { border-top: 2px solid gray; }
-
-table.votes .numbercell { text-align: right; }
 
 table.votes tbody tr:nth-child(odd) { background-color: lightgray; }
 table.votes tbody tr:nth-child(even) { background-color: white; }
@@ -81,6 +84,8 @@ table.votes td.partylogo { text-align: center; padding-right: 2px; }
 table.votes tr.validrow td { font-weight: bold; }
 table.votes tr.spoiltrow td { font-style: italic; }
 table.votes tr.totalrow td { font-weight:bold; font-style: italic; }
+
+table.regstats tr :first-child { padding-right: 1em; }
 
 .slice { stroke: white; fill: lightgray; }
 .slice.ANC { fill: #93d3bf; }
