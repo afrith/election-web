@@ -49,7 +49,7 @@ var pie = d3.layout.pie().value(function (d) { return d.votes; });
 
 var progarc = d3.svg.arc().outerRadius(95).innerRadius(60).startAngle(0);
 var progsvg = d3.select("div#splash").select("svg");
-var progtotal = 342783;
+var progtotal = 340259;
 
 var progcnt = { a: 0, b: 0, c: 0, d: 0 };
 function updateprog(c, l) {
