@@ -135,7 +135,7 @@ queue()
         .data(topojson.feature(topos, topos.objects.nation).features);
     natarea
         .enter().append("path")
-        .attr("class", "nation")
+        .attr("class", "nation RSA")
         .attr("d", path)
         /*.on("click", clicked)
         .on("mousewheel", mousewheel)
