@@ -1,5 +1,10 @@
 body { margin: 8px; font-family: sans-serif; }
 
+#splash { position: fixed; left: 0; right: 0; top: 0; bottom: 0; width:200px; height:200px; margin: auto;}
+path#progback { stroke: gray; stroke-width:5px; fill: none; }
+path#progbar { stroke: none; fill: lightgray; }
+#progtext { font-size: 32px; font-weight: bold; }
+
 /* Screen layout */
 #wrapper { position: relative; }
 @media only screen and (max-width: 429px) {

@@ -7,7 +7,15 @@
     <link href="election-web.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
+    <div id="splash">
+    <svg>
+        <g id="spl" transform="translate(100,100)">
+            <path id="progbar"></path>
+            <path id="progback" d="M0,95A95,95 0 1,1 0,-95A95,95 0 1,1 0,95M0,60A60,60 0 1,0 0,-60A60,60 0 1,0 0,60Z"></path>
+            <text id="progtext" style="text-anchor: middle;" dy="0.35em">0%</text>
+        </g>
+    </svg>
+    </div>
     <div id="wrapper" style="display: none;">
     <div class="header"><span id="placename"></span></div>
     <div id="content">
