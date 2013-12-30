@@ -366,7 +366,7 @@ function updateAll(ballot, code, firsttime) {
         slices.enter().append("path")
             .attr("class", function(d) { return "slice " + d.data.party; })
             .each(function(d) {
-                this._curang = {data: d.data, value: 1, startAngle: 1, endAngle: 1};
+                this._curang = {data: d.data, value: d.value, startAngle: d.startAngle, endAngle: d.startAngle};
             });
         slices
             .transition().duration(transDuration)
@@ -377,6 +377,7 @@ function updateAll(ballot, code, firsttime) {
                     return arc(i(t));
                 };
             });
+        slices.exit().remove();
 
         var labels = labelg.selectAll(".pielabel")
             .data(pie(datafilt), function(d) { return d.data.party; });
@@ -408,6 +409,7 @@ function updateAll(ballot, code, firsttime) {
                     this.textContent = percintfmt(i(t));
                 };
             });
+        labels.exit().remove();
 
         //Update URL hash
         window.location.hash = "#" + ballot + "," + code;
