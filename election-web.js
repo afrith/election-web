@@ -287,15 +287,16 @@ function goToArea(code, firsttime) {
     if (code == curCode) {
         return;
     }
-
     curCode = code;
-    var d = d3.select('.' + code).datum();
-    var l = placeinfo[code].layer;
+
     d3.select('#placename').text(placeinfo[code].name);
     d3.select('title').text("2009 National Assembly election — " + placeinfo[code].name);
     if (!firsttime) {
         d3.select(".hint").remove();
     }
+
+    var d = d3.select('.' + code).datum();
+    var l = placeinfo[code].layer;
 
     unhovered();
     d3.select('#selpath').remove();
@@ -342,17 +343,65 @@ function goToArea(code, firsttime) {
         showMuni(k, 2, placeinfo[code].parent);
     }
 
+    updateTables();
+};
+
+function showProv(scale, sw) {
+    provstroke.transition().duration(transDuration).style("stroke-width", (sw/scale) + "px");
+}
+
+function showDist(scale, sw, pcode) {
+    distarea.style("pointer-events", function(d) {
+        if ((!pcode) || (placeinfo[d.id].parent == pcode)) {
+            return "auto";
+        } else {
+            return "none";
+        }
+    }).style("display", "inline");
+    distarea.transition().duration(transDuration).style("opacity", 1);
+    diststroke.style("display", "inline");
+    diststroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
+}
+
+function showMuni(scale, sw, pcode) {
+    muniarea.style("pointer-events", function(d) {
+        if ((!pcode) || (placeinfo[d.id].parent == pcode)) {
+            return "auto";
+        } else {
+            return "none";
+        }
+    }).style("display", "inline");
+
+    muniarea.transition().duration(transDuration).style("opacity", 1);
+    munistroke.style("display", "inline");
+    munistroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
+}
+
+function hideDist() {
+    distarea.style("pointer-events", "none");
+    distarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
+    diststroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
+}
+
+function hideMuni() {
+    muniarea.style("pointer-events", "none");
+    muniarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
+    munistroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
+
+}
+
+function updateTables() {
     // Update table
-    var valid = placeballot[code][curBallot].valid;
-    var spoilt = placeballot[code][curBallot].spoilt;
-    var regd = placeballot[code][curBallot].regd;
+    var valid = placeballot[curCode][curBallot].valid;
+    var spoilt = placeballot[curCode][curBallot].spoilt;
+    var regd = placeinfo[curCode].regd;
 
     vtbl.style("opacity", 0);
     rtbl.style("opacity", 0);
 
     var tabsel = vtbody.selectAll("tr")
-        .data(votes[code], function(d) { return d.party; });
-    
+        .data(votes[curCode], function(d) { return d.party; });
+
     var newtr = tabsel.enter()
         .append("tr")
         .attr("class", function(d) { return "row-" + d.party; });
@@ -379,7 +428,7 @@ function goToArea(code, firsttime) {
     rtbl.transition().duration(transDuration).style("opacity", 1);
 
     // Update pie
-    var datafilt = votes[code].filter(function(d) { return d.votes > 0; });
+    var datafilt = votes[curCode].filter(function(d) { return d.votes > 0; });
 
     var slices = sliceg.selectAll(".slice")
         .data(pie(datafilt), function(d) { return d.data.party; });
@@ -430,51 +479,7 @@ function goToArea(code, firsttime) {
         });
 
     //Update URL hash
-    window.location.hash = "#" + code;
-};
-
-function showProv(scale, sw) {
-    provstroke.transition().duration(transDuration).style("stroke-width", (sw/scale) + "px");
-}
-
-function showDist(scale, sw, pcode) {
-    distarea.style("pointer-events", function(d) {
-        if ((!pcode) || (placeinfo[d.id].parent == pcode)) {
-            return "auto";
-        } else {
-            return "none";
-        }
-    }).style("display", "inline");
-    distarea.transition().duration(transDuration).style("opacity", 1);
-    diststroke.style("display", "inline");
-    diststroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
-}
-
-function showMuni(scale, sw, pcode) {
-    muniarea.style("pointer-events", function(d) {
-        if ((!pcode) || (placeinfo[d.id].parent == pcode)) {
-            return "auto";
-        } else {
-            return "none";
-        }
-    }).style("display", "inline");
-
-    muniarea.transition().duration(transDuration).style("opacity", 1);
-    munistroke.style("display", "inline");
-    munistroke.transition().duration(transDuration).style("opacity", 1).style("stroke-width", (sw/scale) + "px");
-}
-
-function hideDist() {
-    distarea.style("pointer-events", "none");
-    distarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { distarea.style("display", "none"); });
-    diststroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { diststroke.style("display", "none"); });
-}
-
-function hideMuni() {
-    muniarea.style("pointer-events", "none");
-    muniarea.transition().duration(transDuration).style("opacity", 0).each("end", function() { muniarea.style("display", "none"); });
-    munistroke.transition().duration(transDuration).style("opacity", 0).style("stroke-width", "0px").each("end", function() { munistroke.style("display", "none"); });
-
+    window.location.hash = "#" + curCode;
 }
 
 var hovering = false;
