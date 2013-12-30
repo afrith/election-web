@@ -251,6 +251,7 @@ function goToArea(code) {
     var d = d3.select('.' + code).datum();
     var l = placeinfo[code].layer;
     d3.select('#placename').text(placeinfo[code].name);
+    d3.select('title').text("2009 National Assembly election — " + placeinfo[code].name);
 
     unhovered();
     d3.select('#selpath').remove();
