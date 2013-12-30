@@ -151,9 +151,17 @@ queue()
         .on("mousewheel", mousewheel)
         .on("DOMMouseScroll", mousewheel);
 
+    d3.select("#wrapper").style("display", "block");
+    
+    if (window.location.hash !== "") {
+        var h = window.location.hash.substring(1);
+        if (placeinfo[h]) {
+            goToArea(h);
+            return;
+        }
+    }
     goToArea("RSA")
 
-    d3.select("#wrapper").style("display", "block");
 });
 
 d3.select('#zoomout').on("click", function() {
@@ -298,6 +306,9 @@ function goToArea(code) {
     .text(function(d) {
         return percintfmt(d.data.votes/valid);
     });
+
+    //Update URL hash
+    window.location.hash = (l == 0) ? "" : ("#" + code);
 };
 
 function showProv(scale, sw) {
