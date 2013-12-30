@@ -249,7 +249,8 @@ function hashchanged() {
 function updateAll(ballot, code, firsttime) {
     if (ballot != curBallot) {
         d3.select("#electype").text((ballot == "N") ? "National Assembly" : "provincial legislature");
-        d3.select("#switchlink").text("View " + ((ballot == "N") ? "provincial legislature" : "National Assembly") + " results");
+        d3.select("#switchlink")
+            .text("View " + ((ballot == "N") ? "provincial legislature" : "National Assembly") + " results");
         provarea.attr("class", function(d) {
             return "province " + d.id + " winner-" + placeballot[d.id][ballot].winner;
         });
@@ -294,7 +295,8 @@ function updateAll(ballot, code, firsttime) {
 
             mapg.transition().duration(transDuration)
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
-            d3.select("#zoomout").style("display", "inline");
+            d3.select("#zoomout")
+                .style("display", "inline");
         }
 
         if (l == 0) {
@@ -321,6 +323,10 @@ function updateAll(ballot, code, firsttime) {
             d3.select(".hint").remove();
         }
         d3.select('title').text("2009 " + ((ballot == "N") ? "National Assembly" : "provincial legislature") + " election — " + placeinfo[code].name);
+        d3.select("#switchlink")
+            .attr("href", "#" + ((ballot == "N") ? "P" : "N") + "," + code);
+        d3.select("#zoomout")
+            .attr("href", "#" + ballot + "," + placeinfo[code].parent);
 
         // Update table
         var valid = placeballot[code][ballot].valid;
