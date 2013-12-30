@@ -236,7 +236,7 @@ function hashchanged() {
 
 function updateAll(ballot, code, firsttime) {
     if (ballot != curBallot) {
-        d3.select("#electype").text((ballot == "N") ? "national" : "provincial");
+        d3.select("#electype").text((ballot == "N") ? "National Assembly" : "provincial legislature");
         d3.select("#switchlink").text("View " + ((ballot == "N") ? "provincial legislature" : "National Assembly") + " results");
         provarea.attr("class", function(d) {
             return "province " + d.id + " winner-" + placeballot[d.id][ballot].winner;
@@ -254,7 +254,6 @@ function updateAll(ballot, code, firsttime) {
     if (code != curCode) {
 
         d3.select('#placename').text(placeinfo[code].name);
-        d3.select('title').text("2009 National Assembly election — " + placeinfo[code].name);
 
         var d = d3.select('.' + code).datum();
         var l = placeinfo[code].layer;
@@ -309,6 +308,7 @@ function updateAll(ballot, code, firsttime) {
         if (!firsttime) {
             d3.select(".hint").remove();
         }
+        d3.select('title').text("2009 " + ((ballot == "N") ? "National Assembly" : "provincial legislature") + " election — " + placeinfo[code].name);
 
         // Update table
         var valid = placeballot[code][ballot].valid;
