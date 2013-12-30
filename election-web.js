@@ -47,7 +47,7 @@ var radius = Math.min(piewidth, pieheight)/2;
 var arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(0);
 var pie = d3.layout.pie().value(function (d) { return d.votes; });
 
-var progarc = d3.svg.arc().outerRadius(95).innerRadius(60).startAngle(0);
+var progarc = d3.svg.arc().outerRadius(95).innerRadius(50).startAngle(0);
 var progsvg = d3.select("div#splash").select("svg");
 var progtotal = 340259;
 
