@@ -22,6 +22,7 @@ path#progbar { stroke: none; fill: lightblue; }
     #wrapper { width: 100% }
     #content { position: relative; }
     #map { position:relative; width: 400px; height: 360px; }
+    #midlink { width: 400px; }
     #piechart { position: relative; width: 300px; height: 300px; left:50px;}
     #regstuff { position:relative; width: 400px; }
     #legend { position:absolute; left: 410px; top: 0; }
@@ -31,6 +32,7 @@ path#progbar { stroke: none; fill: lightblue; }
     #wrapper { width:870px; margin:0 auto; }
     #content { position: relative; }
     #map { position:relative; width: 400px; height: 360px; }
+    #midlink { width: 400px; }
     #piechart { position: relative; width: 300px; height: 300px; left:50px;}
     #regstuff { position:relative; width: 400px; }
     #legend { position:absolute; left: 410px; top: 0; }
@@ -42,6 +44,7 @@ svg { overflow: hidden; }
 /* Text formatting */
 div.heading { font-size: 125%; font-weight: bold; text-align: center; padding-bottom: 3px; }
 div.hint { font-size: 85%; font-style: italic; text-align: center; height: 0; }
+div#midlink { text-align: center; }
 
 /* Map formatting */
 #resetdiv { position:absolute; right:0; bottom:0; text-align: right; }

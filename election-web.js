@@ -237,6 +237,7 @@ function hashchanged() {
 function updateAll(ballot, code, firsttime) {
     if (ballot != curBallot) {
         d3.select("#electype").text((ballot == "N") ? "national" : "provincial");
+        d3.select("#switchlink").text("View " + ((ballot == "N") ? "provincial legislature" : "National Assembly") + " results");
         provarea.attr("class", function(d) {
             return "province " + d.id + " winner-" + placeballot[d.id][ballot].winner;
         });
@@ -403,6 +404,15 @@ function updateAll(ballot, code, firsttime) {
     curBallot = ballot;
     curCode = code;
 }
+
+d3.select("#switchlink").on("click", function() {
+    d3.event.preventDefault();
+    if (curBallot == "N") {
+        updateAll("P", curCode);
+    } else {
+        updateAll("N", curCode);
+    }
+});
 
 d3.select('#zoomout').on("click", function() {
     d3.event.preventDefault();
