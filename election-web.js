@@ -257,20 +257,28 @@ function goToArea(code) {
 
     var tabsel = vtbody.selectAll("tr")
         .data(votes[code], function(d) { return d.party; });
+
+    tabsel.style("display", "none");
     
-    var newtr = tabsel.enter().append("tr").attr("class", function(d) { return "row-" + d.party; });
+    var newtr = tabsel.enter()
+        .append("tr")
+        .attr("class", function(d) { return "row-" + d.party; })
+        .style("display", "none");
     newtr.append("td").attr("class", "partylogo")
         .append("img").attr("src", function(d) { return "images/" + d.party + ".png"; });
     newtr.append("td").text(function (d) { return parties[d.party].name; });
     newtr.append("td").attr("class", "numbercell votenum");
     newtr.append("td").attr("class", "numbercell voteperc");
 
-    tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
-    tabsel.select(".voteperc").text(function (d) { return percfmt(d.votes/valid); });
-
     tabsel.exit().remove();
 
     tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
+    tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
+    tabsel.select(".voteperc").text(function (d) { return percfmt(d.votes/valid); });
+
+    tabsel.transition().duration(0).delay(function(d, i) { return i * 30; })
+        .style("display", "table-row");
+
 
     d3.select(".validnum").text(intfmt(valid));
     d3.select(".spoiltnum").text(intfmt(spoilt));
