@@ -40,12 +40,13 @@ path#progbar { stroke: none; fill: lightgray; }
     #legend { position:absolute; left: 410px; top: 0; }
 }
 #piechart, #regstuff { padding-top: 10px; }
-.header { padding-bottom: 10px; }
+div.header { padding-bottom: 8px; }
 
 table.votes { margin: 0 auto; }
 
 /* Text formatting */
-div.header { font-size: 125%; font-weight: bold; text-align: center; }
+div.heading { font-size: 125%; font-weight: bold; text-align: center; padding-bottom: 3px; }
+div.hint { font-size: 85%; font-style: italic; text-align: center; height: 0; }
 .regstats { font-size:85%; margin: 0 auto; }
 
 /* Map formatting */

@@ -191,10 +191,10 @@ queue()
     d3.select("#wrapper").style("display", "block");
     
     var h = window.location.hash.substring(1);
-    if (placeinfo[h]) {
+    if (placeinfo[h] && h !== 'RSA') {
         goToArea(h);
     } else {
-        goToArea("RSA");
+        goToArea("RSA", true);
     }
 
     d3.select(window).on("hashchange", hashchanged);
@@ -241,7 +241,7 @@ function clicked(d) {
     goToArea(d.id);
 }
 
-function goToArea(code) {
+function goToArea(code, firsttime) {
     if (code == curCode) {
         return;
     }
@@ -251,6 +251,9 @@ function goToArea(code) {
     var l = placeinfo[code].layer;
     d3.select('#placename').text(placeinfo[code].name);
     d3.select('title').text("2009 National Assembly election — " + placeinfo[code].name);
+    if (!firsttime) {
+        d3.select(".hint").remove();
+    }
 
     unhovered();
     d3.select('#selpath').remove();
