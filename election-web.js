@@ -154,7 +154,7 @@ queue()
         .on("DOMMouseScroll", mousewheel)
         .on("mousemove", hovered)
         .on("mouseout", unhovered);
-    
+
     distarea = areag.selectAll(".district")
         .data(topojson.feature(topos, topos.objects.districts).features);
     distarea
@@ -211,7 +211,7 @@ queue()
 
     d3.select("#splash").remove();
     d3.select("#wrapper").style("display", "block");
-    
+
     var h = window.location.hash.substring(1);
 
     changeBallot("N");
