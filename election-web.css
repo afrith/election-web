@@ -77,7 +77,6 @@ table.votes tbody tr.row-ANC { background-color: #93d3bf; }
 table.votes tbody tr.row-DA { background-color: #aebbd9; }
 table.votes tbody tr.row-IFP { background-color: #fcae90; }
 table.votes tbody tr.row-COPE { background-color: #fee36c; }
-table.votes tbody tr.row-ID { background-color: #fdb462; }
 
 table.votes td.partylogo { text-align: center; padding-right: 2px; }
 
@@ -92,6 +91,5 @@ table.regstats tr :first-child { padding-right: 1em; }
 .slice.DA { fill: #aebbd9; }
 .slice.IFP { fill: #fcae90; }
 .slice.COPE { fill: #fee36c; }
-.slice.ID { fill: #fdb462; }
 
 .pielabel { fill: black; stroke: none; }
