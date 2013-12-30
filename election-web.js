@@ -213,24 +213,36 @@ queue()
     d3.select("#splash").remove();
     d3.select("#wrapper").style("display", "block");
 
-    var h = window.location.hash.substring(1);
-
-    if (placeinfo[h] && h != 'RSA') {
-        updateAll("N", h);
-    } else {
-        updateAll("N", "RSA", true);
+    var h = window.location.hash.substring(1).split(",");
+    var b = "N";
+    var c = "RSA";
+    if (h[0] && (h[0] == "N" || h[0] == "P")) {
+        b = h[0];
     }
+    if (h[1] && (h[1] in placeinfo)) {
+        c = h[1];
+    }
+    updateAll(b,c);
 
     d3.select(window).on("hashchange", hashchanged);
 
 });
 
+var hcdisable = false;
 function hashchanged() {
-    var h = window.location.hash.substring(1);
-    if (placeinfo[h]) {
-        updateAll(curBallot, h);
-    } else if (h == "") {
-        updateAll(curBallot, "RSA");
+    if (!hcdisable) {
+        var h = window.location.hash.substring(1).split(",");
+        var b = curBallot;
+        var c = curCode;
+        if (h[0] && (h[0] == "N" || h[0] == "P")) {
+            b = h[0];
+        }
+        if (h[1] && (h[1] in placeinfo)) {
+            c = h[1];
+        }
+        hcdisable = true;
+        updateAll(b, c);
+        hcdisable = false;
     }
 }
 
@@ -398,7 +410,7 @@ function updateAll(ballot, code, firsttime) {
             });
 
         //Update URL hash
-        window.location.hash = "#" + code;
+        window.location.hash = "#" + ballot + "," + code;
     }
 
     curBallot = ballot;
