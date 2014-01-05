@@ -235,7 +235,6 @@ function hashchanged() {
 
 function updateAll(ballot, code, firsttime) {
     if (ballot != curBallot) {
-        d3.select("#electype").text((ballot == "N") ? "National Assembly" : "provincial legislature");
         d3.select("#switchlink")
             .text("View " + ((ballot == "N") ? "provincial legislature" : "National Assembly") + " results");
         provarea.attr("class", function(d) {
@@ -252,9 +251,6 @@ function updateAll(ballot, code, firsttime) {
     }
 
     if (code != curCode) {
-
-        d3.select('#placename').text(placeinfo[code].name);
-
         var d = d3.select('.' + code).datum();
         var l = placeinfo[code].layer;
 
@@ -306,9 +302,28 @@ function updateAll(ballot, code, firsttime) {
     }
 
     if ((ballot != curBallot) || (code != curCode)) {
-        if (!firsttime) {
-            d3.select(".hint").remove();
+        var hdg = d3.select(".heading");
+        var hint = d3.select(".hint");
+        var nhtxt = "2009 " + ((ballot == "N") ? "National Assembly" : "provincial legislature") + " election — " + placeinfo[code].name;
+        if (firsttime) {
+            hdg.text(nhtxt)
+                .transition().duration(transDuration)
+                .style("opacity", 1);
+            hint.transition().duration(transDuration)
+                .style("opacity", 1);
+        } else {
+            hdg.transition().duration(transDuration/2)
+                .style("opacity", 0)
+                .each("end", function() {
+                    hdg.text(nhtxt)
+                        .transition().duration(transDuration/2)
+                        .style("opacity", 1);
+                });
+            hint.transition().duration(transDuration)
+                .style("opacity", 0)
+                .each("end", function() { hint.remove(); });
         }
+
         d3.select('title').text("2009 " + ((ballot == "N") ? "National Assembly" : "provincial legislature") + " election — " + placeinfo[code].name);
         d3.select("#switchlink")
             .attr("href", "#" + ((ballot == "N") ? "P" : "N") + "," + code);
