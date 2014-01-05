@@ -28,9 +28,7 @@ var mapg = svg.select("g#map");
 var selph = mapg.select("g#selph");
 var hoverph = mapg.select("g#hoverph");
 
-var vtbl = d3.select("table.votes");
-var vtbody = vtbl.select("tbody");
-var rtbl = d3.select("table.regstats");
+var vtbody = d3.select("table.votes").select("tbody");
 
 var piesvg = d3.select("div#piechart").select("svg")
     .attr("viewBox", "0 0 " + piewidth + " " + pieheight);
@@ -322,36 +320,39 @@ function updateAll(ballot, code, firsttime) {
         var spoilt = placeballot[code][ballot].spoilt;
         var regd = placeinfo[code].regd;
 
-        vtbl.style("opacity", 0);
-        rtbl.style("opacity", 0);
+        var fadetables = d3.selectAll("table.fadetable");
 
-        var tabsel = vtbody.selectAll("tr")
-            .data(votes[code][ballot], function(d) { return d.party; });
+        fadetables.transition().duration(transDuration/2)
+            .style("opacity", 0)
+            .each("end", function() {
 
-        var newtr = tabsel.enter()
-            .append("tr")
-            .attr("class", function(d) { return "row-" + d.party; });
-        newtr.append("td").attr("class", "partylogo")
-            .append("img").attr("src", function(d) { return "images/" + d.party + ".png"; });
-        newtr.append("td").text(function (d) { return parties[d.party].name; });
-        newtr.append("td").attr("class", "numbercell votenum");
-        newtr.append("td").attr("class", "numbercell voteperc");
+                var tabsel = vtbody.selectAll("tr")
+                    .data(votes[code][ballot], function(d) { return d.party; });
 
-        tabsel.exit().remove();
+                var newtr = tabsel.enter()
+                    .append("tr")
+                    .attr("class", function(d) { return "row-" + d.party; });
+                newtr.append("td").attr("class", "partylogo")
+                    .append("img").attr("src", function(d) { return "images/" + d.party + ".png"; });
+                newtr.append("td").text(function (d) { return parties[d.party].name; });
+                newtr.append("td").attr("class", "numbercell votenum");
+                newtr.append("td").attr("class", "numbercell voteperc");
 
-        tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
-        tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
-        tabsel.select(".voteperc").text(function (d) { return percfmt(d.votes/valid); });
+                tabsel.exit().remove();
 
+                tabsel.sort(function(a, b) { return d3.descending(a.votes, b.votes); });
+                tabsel.select(".votenum").text(function (d) { return intfmt(d.votes); });
+                tabsel.select(".voteperc").text(function (d) { return percfmt(d.votes/valid); });
 
-        d3.select(".validnum").text(intfmt(valid));
-        d3.select(".spoiltnum").text(intfmt(spoilt));
-        d3.selectAll(".totalnum").text(intfmt(valid + spoilt));
-        d3.select(".regdnum").text(intfmt(regd));
-        d3.select(".turnout").text(percfmt((valid + spoilt)/regd));
+                d3.select(".validnum").text(intfmt(valid));
+                d3.select(".spoiltnum").text(intfmt(spoilt));
+                d3.selectAll(".totalnum").text(intfmt(valid + spoilt));
+                d3.select(".regdnum").text(intfmt(regd));
+                d3.select(".turnout").text(percfmt((valid + spoilt)/regd));
 
-        vtbl.transition().duration(transDuration).style("opacity", 1);
-        rtbl.transition().duration(transDuration).style("opacity", 1);
+                fadetables.transition().duration(transDuration/2)
+                    .style("opacity", 1);
+            });
 
         // Update pie
         var datafilt = votes[code][ballot].filter(function(d) { return d.votes > 0; });
