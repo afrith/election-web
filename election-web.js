@@ -211,7 +211,7 @@ queue()
     if (h[1] && (h[1] in placeinfo)) {
         c = h[1];
     }
-    updateAll(b,c);
+    updateAll(b,c,true);
 
     d3.select(window).on("hashchange", hashchanged);
 
